@@ -21,6 +21,8 @@ This skill owns voice, prose, tone, persona overlays, and language anti-patterns
 Read only the references needed for the task:
 
 - Core RaidGuild voice: `references/raidguild-core-voice.md`
+- Community/member voice: `references/community-voice.md`
+- High-spice cultural edge: `references/cultural-spice.md`
 - AI Solutions/buyer-facing voice: `references/ai-solutions-voice.md`
 - Queen Raida persona voice: `references/queen-raida-voice.md`
 - Channel modulation: `references/channel-voice.md`
@@ -36,9 +38,11 @@ If the output may become public, route the final draft through `rg-public-output
 Before rewriting, choose the voice layer:
 
 1. `RaidGuild core`: public brand, community updates, general site copy.
-2. `AI Solutions`: buyer-facing offers, sales collateral, service pages, launch notes.
-3. `Queen Raida`: `@raidguildish`, agent persona, agent capability updates.
-4. `Internal/community`: Discord, coordination notes, review asks, member-facing summaries.
+2. `Community/member`: origin stories, tavern language, cohort notes, member-facing summaries.
+3. `Cultural spice`: zine/punk/Moloch/coordination-failure edge for high-context audience.
+4. `AI Solutions`: buyer-facing offers, sales collateral, service pages, launch notes.
+5. `Queen Raida`: `@raidguildish`, agent persona, agent capability updates.
+6. `Internal/community`: Discord, coordination notes, review asks, member-facing summaries.
 
 Score the draft on:
 

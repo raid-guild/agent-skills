@@ -1,0 +1,87 @@
+{
+  "key": "portal-activity-report",
+  "name": "Portal Activity Report",
+  "version": 1,
+  "description": "Create Portal activity, feedback, and arcade reports from source APIs and publish reviewed summaries to Discord or request artifacts.",
+  "entrypoint": "steering",
+  "workflowPath": "workflow.md",
+  "sourceModes": [
+    "weekly_activity",
+    "arcade",
+    "feedback",
+    "ad_hoc"
+  ],
+  "absorbs": [
+    "weekly-portal-activity-snapshot",
+    "portal-arcade-reporter"
+  ],
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "portal-activity-report-agent",
+    "skills": [
+      "rg-portal-ops",
+      "rg-content-strategy",
+      "rg-public-output-safety",
+      "rg-publishing-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "steering",
+      "label": "Steering",
+      "type": "gate",
+      "instructionPath": "steps/steering.md",
+      "routes": {
+        "approved": "collect-data",
+        "changesRequested": "steering",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "collect-data",
+      "label": "Collect Data",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/collect-data.md",
+      "next": "create-report"
+    },
+    {
+      "key": "create-report",
+      "label": "Create Report",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/create-report.md",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Review",
+      "type": "gate",
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approved": "publish-summary",
+        "changesRequested": "create-report",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "publish-summary",
+      "label": "Publish Summary",
+      "type": "agent",
+      "autoRun": false,
+      "instructionPath": "steps/publish-summary.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "instruction": "Closed state. Final summary records report artifact, destination, and publish result."
+    }
+  ]
+}

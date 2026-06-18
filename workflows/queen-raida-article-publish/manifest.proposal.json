@@ -1,0 +1,83 @@
+{
+  "key": "queen-raida-article-publish",
+  "name": "Queen Raida Article Publish",
+  "version": 1,
+  "description": "Create a public Queen Raida website article in the Queen-Raida repository through triage, approval, repo work, validation, PR, and final review.",
+  "entrypoint": "triage",
+  "workflowPath": "workflow.md",
+  "supersedes": [
+    "publish-queen-raida-article@1"
+  ],
+  "requiresBuiltinSkills": [
+    "target-deploy-ops",
+    "change-request-ops"
+  ],
+  "target": {
+    "kind": "repository",
+    "required": true,
+    "repoUrl": "https://github.com/raid-guild/Queen-Raida",
+    "defaultBranch": "main"
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "queen-raida-article-workflow-agent",
+    "skills": [
+      "rg-content-strategy",
+      "rg-brand-voice",
+      "rg-public-output-safety",
+      "target-deploy-ops",
+      "change-request-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "triage",
+      "label": "Triage",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/triage.md",
+      "next": "approve"
+    },
+    {
+      "key": "approve",
+      "label": "Approve",
+      "type": "gate",
+      "instructionPath": "steps/approve.md",
+      "routes": {
+        "approved": "work",
+        "changesRequested": "triage",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "work",
+      "label": "Repo Work",
+      "type": "agent",
+      "autoRun": false,
+      "instructionPath": "steps/work.md",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Review",
+      "type": "gate",
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approved": "closed",
+        "changesRequested": "work",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "instruction": "Closed state. Final summary records article artifact, branch/PR, validation, and review outcome."
+    }
+  ]
+}

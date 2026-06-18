@@ -1,0 +1,66 @@
+{
+  "key": "portal-session-recording-complete",
+  "name": "Portal Session Recording Complete",
+  "version": 5,
+  "description": "Process recording completion events by ingesting artifacts into Portal session resources, planning recurrence, applying the next occurrence when appropriate, and recording verification.",
+  "entrypoint": "intake",
+  "workflowPath": "workflow.md",
+  "supersedes": [
+    "portal-session-recording-complete@4"
+  ],
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "portal-session-recording-agent",
+    "skills": [
+      "rg-portal-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "intake",
+      "label": "Intake",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/intake.md",
+      "next": "ingest-artifacts"
+    },
+    {
+      "key": "ingest-artifacts",
+      "label": "Ingest Artifacts",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/ingest-artifacts.md",
+      "next": "plan-next-occurrence"
+    },
+    {
+      "key": "plan-next-occurrence",
+      "label": "Plan Next Occurrence",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/plan-next-occurrence.md",
+      "routes": {
+        "apply": "apply-next-occurrence",
+        "skip": "closed"
+      }
+    },
+    {
+      "key": "apply-next-occurrence",
+      "label": "Apply Next Occurrence",
+      "type": "agent",
+      "autoRun": false,
+      "instructionPath": "steps/apply-next-occurrence.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "instruction": "Closed state. Final summary records ingested artifacts, Portal verification, and recurrence result."
+    }
+  ]
+}

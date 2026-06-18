@@ -46,6 +46,11 @@ Challenge these:
 - public copy that exposes workflow machinery
 - agent persona speaking as a human or official HQ account
 - broad claims about community, clients, or governance without source support
+- handbook grandiosity pasted onto small operational updates
+- member voice polished until the useful rough signal disappears
+- "community" used as filler where the real subject is scope, review, payment, governance, or coordination
+- "Moloch" used as generic villain language without a coordination or incentive point
+- "agent did X" without the work trail, review gate, or artifact
 
 ## Structural Tells
 
@@ -64,3 +69,11 @@ Challenge these:
 4. Check whether lore obscures the factual point.
 5. Vary rhythm where the draft sounds machine-regular.
 6. Rewrite the thought, not only the flagged word.
+
+## Guild-Native Replacement Moves
+
+- Replace "empower the community" with the actual mechanism: fund the proposal, staff the raid, write the source pack, review the draft, ship the artifact.
+- Replace "seamless collaboration" with the coordination pattern: handoff, owner, receipt, meeting note, next gate.
+- Replace "AI transformation" with the workflow: source intake, draft, sanitizer, human review, publish or archive.
+- Replace "innovation ecosystem" with the concrete actors: raiders, apprentices, clients, maintainers, stewards, contributors.
+- Replace empty urgency with a real deadline, event, launch, proposal window, or review need.

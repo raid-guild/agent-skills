@@ -1,0 +1,53 @@
+{
+  "key": "meeting-transcript-memory-ingest",
+  "name": "Meeting Transcript Memory Ingest",
+  "version": 2,
+  "description": "Human-assisted workflow for attaching a meeting transcript file and ingesting it into Prism Memory as a normalized transcript artifact.",
+  "entrypoint": "attach-transcript",
+  "workflowPath": "workflow.md",
+  "requiresBuiltinSkills": [
+    "change-request-ops",
+    "prism-api-writer"
+  ],
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "meeting-transcript-ingest-agent",
+    "skills": [
+      "rg-content-strategy",
+      "change-request-ops",
+      "prism-api-writer"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "attach-transcript",
+      "label": "Attach Transcript",
+      "type": "gate",
+      "instructionPath": "steps/attach-transcript.md",
+      "routes": {
+        "approved": "ingest-transcript",
+        "changesRequested": "attach-transcript",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "ingest-transcript",
+      "label": "Ingest Transcript",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/ingest-transcript.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "instruction": "Closed state. Final summary records transcript artifact, memory inbox write result, and blockers."
+    }
+  ]
+}

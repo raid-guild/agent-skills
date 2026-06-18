@@ -1,0 +1,167 @@
+{
+  "key": "brief-media-publish",
+  "name": "Brief Media Publish",
+  "version": 1,
+  "description": "Canonical brief, podcast, and recap media workflow for source-backed RaidGuild summaries with optional TTS, object storage, Remotion render, review, and Portal publishing.",
+  "entrypoint": "steering",
+  "workflowPath": "workflow.md",
+  "sourceModes": [
+    "weekly_public",
+    "internal_daily",
+    "daily_memory",
+    "fireside_recap",
+    "brief_only"
+  ],
+  "absorbs": [
+    "weekly-public-brief-podcast-publish",
+    "internal-daily-brief-podcast-publish",
+    "daily-memory-brief-review",
+    "fireside-recap-video-publish"
+  ],
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "brief-media-workflow-agent",
+    "skills": [
+      "rg-content-strategy",
+      "rg-brand-voice",
+      "rg-public-output-safety",
+      "s3-object-storage",
+      "rg-media-render-ops",
+      "rg-portal-ops",
+      "rg-publishing-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "steering",
+      "label": "Steering",
+      "type": "gate",
+      "instructionPath": "steps/steering.md",
+      "routes": {
+        "approved": "source-intake",
+        "changesRequested": "steering",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "source-intake",
+      "label": "Source Intake",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/source-intake.md",
+      "next": "brief-plan"
+    },
+    {
+      "key": "brief-plan",
+      "label": "Brief Plan",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/brief-plan.md",
+      "next": "draft-brief"
+    },
+    {
+      "key": "draft-brief",
+      "label": "Draft Brief",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/draft-brief.md",
+      "next": "script-plan"
+    },
+    {
+      "key": "script-plan",
+      "label": "Script Or Skip Media",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/script-plan.md",
+      "routes": {
+        "media": "review",
+        "briefOnly": "review"
+      }
+    },
+    {
+      "key": "review",
+      "label": "Content Review",
+      "type": "gate",
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approvedMedia": "tts-render",
+        "approvedBriefOnly": "publish-prep",
+        "changesRequested": "draft-brief",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "tts-render",
+      "label": "TTS Render",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/tts-render.md",
+      "next": "media-prep"
+    },
+    {
+      "key": "media-prep",
+      "label": "Media Prep",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/media-prep.md",
+      "next": "video-render"
+    },
+    {
+      "key": "video-render",
+      "label": "Video Render",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/video-render.md",
+      "next": "render-checkpoint"
+    },
+    {
+      "key": "render-checkpoint",
+      "label": "Render Checkpoint",
+      "type": "checkpoint",
+      "instructionPath": "steps/render-checkpoint.md",
+      "resumeLabel": "Check render job status",
+      "next": "final-review"
+    },
+    {
+      "key": "final-review",
+      "label": "Final Review",
+      "type": "gate",
+      "instructionPath": "steps/final-review.md",
+      "routes": {
+        "approved": "publish-prep",
+        "changesRequested": "media-prep",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "publish-prep",
+      "label": "Publish Prep",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/publish-prep.md",
+      "next": "publish"
+    },
+    {
+      "key": "publish",
+      "label": "Publish",
+      "type": "agent",
+      "autoRun": false,
+      "instructionPath": "steps/publish.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "instruction": "Closed state. Final summary records public/internal visibility, media URLs if any, Portal result, and publish evidence."
+    }
+  ]
+}

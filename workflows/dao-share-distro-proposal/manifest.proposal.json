@@ -1,0 +1,94 @@
+{
+  "key": "dao-share-distro-proposal",
+  "name": "DAO Share Distro Proposal",
+  "version": 1,
+  "description": "Collect cycle activity evidence, build share distribution artifacts, prepare a Moloch/DAOhaus proposal payload, route through review, and submit only after operator continuation.",
+  "entrypoint": "steering",
+  "workflowPath": "workflow.md",
+  "supersedes": [
+    "monthly-share-distro-proposal@6"
+  ],
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "dao-share-distro-agent",
+    "skills": [
+      "rg-dao-ops",
+      "rg-publishing-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "steering",
+      "label": "Steering",
+      "type": "gate",
+      "instructionPath": "steps/steering.md",
+      "routes": {
+        "approved": "collect-activity",
+        "changesRequested": "steering",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "collect-activity",
+      "label": "Collect Activity",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/collect-activity.md",
+      "next": "build-distro"
+    },
+    {
+      "key": "build-distro",
+      "label": "Build Distro",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/build-distro.md",
+      "next": "build-proposal"
+    },
+    {
+      "key": "build-proposal",
+      "label": "Build Proposal",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/build-proposal.md",
+      "next": "draft-review"
+    },
+    {
+      "key": "draft-review",
+      "label": "Draft Review",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/draft-review.md",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Review",
+      "type": "gate",
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approved": "submit-onchain",
+        "changesRequested": "build-distro",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "submit-onchain",
+      "label": "Submit Onchain",
+      "type": "agent",
+      "autoRun": false,
+      "instructionPath": "steps/submit-onchain.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "instruction": "Closed state. Final summary records evidence artifacts, proposal payload, review result, and transaction/proposal id if submitted."
+    }
+  ]
+}

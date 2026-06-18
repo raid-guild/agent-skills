@@ -1,0 +1,141 @@
+{
+  "key": "field-notes-from-fireside",
+  "name": "Field Notes From Fireside",
+  "version": 18,
+  "description": "Canonical fireside parent workflow that creates source packs, topic maps, media briefs, Portal session resources, one Bard Calendar X draft, and non-autostart child requests for follow-on content.",
+  "entrypoint": "steering",
+  "workflowPath": "workflow.md",
+  "sourceModes": [
+    "portal_session",
+    "fireside_recording",
+    "session_source_pack"
+  ],
+  "supersedes": [
+    "field-notes-from-fireside@17"
+  ],
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "fireside-field-notes-agent",
+    "skills": [
+      "rg-content-strategy",
+      "rg-brand-voice",
+      "rg-public-output-safety",
+      "rg-portal-ops",
+      "rg-publishing-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "childWorkflows": [
+    {
+      "key": "blog-editorial-publish",
+      "mode": "fireside",
+      "autoRun": false,
+      "purpose": "Focused fireside blog post from one approved narrow angle."
+    },
+    {
+      "key": "fireside-wiki-topic-develop",
+      "mode": "wiki_topic",
+      "autoRun": false,
+      "purpose": "Broad exploratory Portal wiki topic page or page set from the approved topic map."
+    },
+    {
+      "key": "brief-media-publish",
+      "mode": "fireside_recap",
+      "autoRun": false,
+      "purpose": "Source-grounded fireside recap media using the approved media brief."
+    }
+  ],
+  "steps": [
+    {
+      "key": "steering",
+      "label": "Steering",
+      "type": "gate",
+      "instructionPath": "steps/steering.md",
+      "routes": {
+        "approved": "session-intake",
+        "changesRequested": "steering",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "session-intake",
+      "label": "Session Intake",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/session-intake.md",
+      "next": "source-pack"
+    },
+    {
+      "key": "source-pack",
+      "label": "Source Pack",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/source-pack.md",
+      "next": "topic-map"
+    },
+    {
+      "key": "topic-map",
+      "label": "Topic Map",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/topic-map.md",
+      "next": "media-brief"
+    },
+    {
+      "key": "media-brief",
+      "label": "Media Brief",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/media-brief.md",
+      "next": "portal-artifacts"
+    },
+    {
+      "key": "portal-artifacts",
+      "label": "Portal Artifacts",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/portal-artifacts.md",
+      "next": "package-review"
+    },
+    {
+      "key": "package-review",
+      "label": "Package Review",
+      "type": "gate",
+      "instructionPath": "steps/package-review.md",
+      "routes": {
+        "approved": "calendar-draft",
+        "changesRequested": "topic-map",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "calendar-draft",
+      "label": "Calendar X Draft",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/calendar-draft.md",
+      "next": "spawn-child-requests"
+    },
+    {
+      "key": "spawn-child-requests",
+      "label": "Spawn Child Requests",
+      "type": "agent",
+      "autoRun": false,
+      "instructionPath": "steps/spawn-child-requests.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "instruction": "Closed state. Final summary records source package artifacts, Portal resource result, calendar draft result, and child request ids or blockers."
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "key": "queen-raida-social-publish",
+  "name": "Queen Raida Social Publish",
+  "version": 1,
+  "description": "Human-reviewed Queen Raida social workflow for source-backed replies, posts, threads, announcements, and campaign beats.",
+  "entrypoint": "steering",
+  "workflowPath": "workflow.md",
+  "sourceModes": [
+    "response",
+    "new_post",
+    "thread",
+    "campaign",
+    "support",
+    "announcement"
+  ],
+  "absorbs": [
+    "queen-raida-x-response-draft-review-publish",
+    "queen-raida-portal-launch-campaign"
+  ],
+  "notAbsorbed": [
+    {
+      "workflow": "queen-raida-x-follow-scout-review-follow",
+      "reason": "Follow actions are public account graph operations, not content publishing. Moved to queen-raida-social-graph-ops."
+    },
+    {
+      "workflow": "publish-queen-raida-article",
+      "reason": "Queen Raida site/repo publishing needs target deploy or repo-specific operations."
+    }
+  ],
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "queen-raida-social-workflow-agent",
+    "skills": [
+      "rg-content-strategy",
+      "rg-brand-voice",
+      "rg-public-output-safety",
+      "rg-publishing-ops",
+      "rg-portal-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "steering",
+      "label": "Steering",
+      "type": "gate",
+      "instructionPath": "steps/steering.md",
+      "routes": {
+        "approved": "intake",
+        "changesRequested": "steering",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "intake",
+      "label": "Source Intake",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/intake.md",
+      "next": "strategy"
+    },
+    {
+      "key": "strategy",
+      "label": "Social Strategy",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/strategy.md",
+      "next": "draft"
+    },
+    {
+      "key": "draft",
+      "label": "Draft",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/draft.md",
+      "next": "safety"
+    },
+    {
+      "key": "safety",
+      "label": "Safety Pass",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/safety.md",
+      "routes": {
+        "clear": "review",
+        "needsRevision": "revise",
+        "blocked": "review"
+      }
+    },
+    {
+      "key": "review",
+      "label": "Human Review",
+      "type": "gate",
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approved": "publish",
+        "changesRequested": "revise",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "revise",
+      "label": "Revise",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/revise.md",
+      "next": "safety"
+    },
+    {
+      "key": "publish",
+      "label": "Publish Or Queue",
+      "type": "agent",
+      "autoRun": false,
+      "instructionPath": "steps/publish.md",
+      "next": "reconcile"
+    },
+    {
+      "key": "reconcile",
+      "label": "Reconcile",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/reconcile.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "instruction": "Closed state. Final summary records whether content was posted, queued, revised, blocked, or rejected."
+    }
+  ]
+}

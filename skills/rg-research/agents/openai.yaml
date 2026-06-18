@@ -1,0 +1,4 @@
+interface:
+  display_name: "RaidGuild Research"
+  short_description: "Source discovery, claim checks, and current-signal briefs."
+  default_prompt: "Research this topic, build a source ledger, and label claim confidence before drafting."

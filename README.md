@@ -9,6 +9,7 @@ This repo refactors the current Prism skill corpus into a smaller set of durable
 ```text
 .
 ├── skills/                  # Published skills after refactor and validation.
+├── workflows/               # Normalized workflow recipes composed from skills.
 ├── references/
 │   ├── writing-anti-patterns.md # Shared source material for future voice/content skills.
 │   ├── prism-skills/        # Prism custom skill reference exports and migration notes.
@@ -16,7 +17,9 @@ This repo refactors the current Prism skill corpus into a smaller set of durable
 ├── docs/
 │   ├── adopted-patterns.md  # External skill patterns adopted by this repo.
 │   ├── architecture.md      # Skill design principles and boundaries.
+│   ├── gaps-and-next-work.md # Remaining runtime, testing, corpus, and validation gaps.
 │   ├── migration-plan.md    # Refactor workflow from Prism one-offs to repo skills.
+│   ├── prism-builtin-skills.md # Prism service built-ins this repo composes with.
 │   ├── refactor-plan.md     # Proposed target skill map after reviewing Prism.
 │   └── voice-corpus-plan.md # Voice source strategy for RaidGuild and agent personas.
 └── AGENTS.md                # Instructions for agents working in this repo.
@@ -28,6 +31,7 @@ The first shared content slice has been created:
 
 - `skills/rg-brand-voice`
 - `skills/rg-content-strategy`
+- `skills/rg-research`
 - `skills/rg-public-output-safety`
 - `skills/rg-publishing-ops`
 - `skills/rg-portal-ops`
@@ -39,9 +43,9 @@ The first shared content slice has been created:
 
 Next migration work:
 
-1. Enrich the first-slice references from the voice corpus and Prism workflows.
-2. Forward-test content, publishing, Portal, DAO, CRM, and media flows on realistic tasks.
-3. Keep recurring reports and campaign recipes as workflows instead of new skills.
+1. Forward-test normalized workflow recipes against realistic source packages.
+2. Convert accepted workflow recipes into the Prism runtime import format.
+3. Enrich the first-slice references from the voice corpus and Prism workflows.
 
 ## Skill Standard
 

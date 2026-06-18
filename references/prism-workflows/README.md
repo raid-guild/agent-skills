@@ -4,6 +4,11 @@ This directory contains reference copies of enabled instance workflows exported 
 
 These files are source material for workflow migration and review. They are not runtime workflow state, and approval/current-step/run history remains owned by Prism database records.
 
+Migration planning:
+
+- `inventory.md`: workflow family inventory, decisions, and new skill sequence mapping.
+- `refactor-plan.md`: workflow consolidation plan and canonical family recommendations.
+
 ## Source
 
 - Source service: Prism site service workflow API

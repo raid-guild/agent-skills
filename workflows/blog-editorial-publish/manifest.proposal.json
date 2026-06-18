@@ -1,0 +1,132 @@
+{
+  "key": "blog-editorial-publish",
+  "name": "Blog Editorial Publish",
+  "version": 1,
+  "description": "Canonical RaidGuild editorial/blog workflow for generic, steered, fireside, and lore posts. Starts with a human steering gate, then creates a strategy brief, draft, media plan, voice pass, public-safety pass, human review, and Portal CMS draft/publish package.",
+  "entrypoint": "steering",
+  "workflowPath": "workflow.md",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "prism-workflow-agent",
+    "skills": [
+      "rg-content-strategy",
+      "rg-brand-voice",
+      "rg-public-output-safety",
+      "rg-portal-ops",
+      "rg-publishing-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 1
+    }
+  },
+  "sourceModes": [
+    "generic",
+    "steered",
+    "fireside",
+    "lore"
+  ],
+  "absorbs": [
+    "blog-post-draft-review-publish",
+    "blog-post-steered-draft-review-publish",
+    "fireside-blog-post-draft-publish",
+    "lore-entry-draft-review-publish"
+  ],
+  "steps": [
+    {
+      "key": "steering",
+      "label": "Steering Gate",
+      "type": "gate",
+      "instructionPath": "steps/steering.md",
+      "routes": {
+        "approved": "strategy-brief",
+        "changesRequested": "steering",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "strategy-brief",
+      "label": "Strategy Brief",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/strategy-brief.md",
+      "next": "draft"
+    },
+    {
+      "key": "draft",
+      "label": "Draft",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/draft.md",
+      "next": "media-plan"
+    },
+    {
+      "key": "media-plan",
+      "label": "Media Plan",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/media-plan.md",
+      "next": "voice-pass"
+    },
+    {
+      "key": "voice-pass",
+      "label": "Voice Pass",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/voice-pass.md",
+      "next": "safety-pass"
+    },
+    {
+      "key": "safety-pass",
+      "label": "Safety Pass",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/safety-pass.md",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Human Review",
+      "type": "gate",
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approved": "portal-publish-prep",
+        "changesRequested": "revise",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "revise",
+      "label": "Revise",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/revise.md",
+      "next": "voice-pass"
+    },
+    {
+      "key": "portal-publish-prep",
+      "label": "Portal Publish Prep",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/portal-publish-prep.md",
+      "next": "portal-write"
+    },
+    {
+      "key": "portal-write",
+      "label": "Portal Draft Or Publish",
+      "type": "agent",
+      "autoRun": false,
+      "instructionPath": "steps/portal-write.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal"
+    }
+  ]
+}

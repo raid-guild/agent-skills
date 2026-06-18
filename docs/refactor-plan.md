@@ -94,11 +94,12 @@ Absorbs:
 
 References to create:
 
-- `references/source-quality.md`
-- `references/claim-checking.md`
-- `references/hacker-news-scouting.md`
-- `references/hivemind-adapter.md`
-- `references/research-brief-output.md`
+- `references/source-ledger.md`
+- `references/claim-confidence.md`
+- `references/current-signal-ranking.md`
+- `references/hacker-news.md`
+- `references/duckduckgo-ddgs.md`
+- `references/hivemind-context.md`
 
 Keep live API credentials and endpoint instructions in references or scripts, not in broad brand/content skills.
 

@@ -1,0 +1,72 @@
+{
+  "key": "queen-raida-social-graph-ops",
+  "name": "Queen Raida Social Graph Ops",
+  "version": 1,
+  "description": "Human-reviewed workflow for discovering Queen Raida follow candidates and applying approved X social graph changes.",
+  "entrypoint": "steering",
+  "workflowPath": "workflow.md",
+  "supersedes": [
+    "queen-raida-x-follow-scout-review-follow@1"
+  ],
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "queen-raida-social-graph-agent",
+    "skills": [
+      "rg-content-strategy",
+      "rg-brand-voice",
+      "rg-publishing-ops",
+      "rg-portal-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "steering",
+      "label": "Steering",
+      "type": "gate",
+      "instructionPath": "steps/steering.md",
+      "routes": {
+        "approved": "discover",
+        "changesRequested": "steering",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "discover",
+      "label": "Discover Candidates",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/discover.md",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Review",
+      "type": "gate",
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approved": "apply",
+        "changesRequested": "discover",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "apply",
+      "label": "Apply Approved Changes",
+      "type": "agent",
+      "autoRun": false,
+      "instructionPath": "steps/apply.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "instruction": "Closed state. Final summary records approved handles, applied graph changes, skipped accounts, and failures."
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "key": "fireside-wiki-topic-develop",
+  "name": "Fireside Wiki Topic Develop",
+  "version": 5,
+  "description": "Create or update Portal wiki pages from a fireside topic or research seed using inquiry mapping, source research, structured wiki data models, review, and Portal publishing.",
+  "entrypoint": "steering",
+  "workflowPath": "workflow.md",
+  "supersedes": [
+    "fireside-wiki-topic-develop@4"
+  ],
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "fireside-wiki-topic-agent",
+    "skills": [
+      "rg-research",
+      "rg-content-strategy",
+      "rg-brand-voice",
+      "rg-public-output-safety",
+      "rg-portal-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "steering",
+      "label": "Steering",
+      "type": "gate",
+      "instructionPath": "steps/steering.md",
+      "routes": {
+        "approved": "inquiry-map",
+        "changesRequested": "steering",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "inquiry-map",
+      "label": "Inquiry Map",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/inquiry-map.md",
+      "next": "topic-map"
+    },
+    {
+      "key": "topic-map",
+      "label": "Wiki Topic Map",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/topic-map.md",
+      "next": "source-research"
+    },
+    {
+      "key": "source-research",
+      "label": "Source Research",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/source-research.md",
+      "next": "data-model"
+    },
+    {
+      "key": "data-model",
+      "label": "Wiki Data Model",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/data-model.md",
+      "next": "draft"
+    },
+    {
+      "key": "draft",
+      "label": "Draft Wiki Page",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/draft.md",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Review",
+      "type": "gate",
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approved": "publish",
+        "changesRequested": "revise",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "revise",
+      "label": "Revise",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/revise.md",
+      "next": "review"
+    },
+    {
+      "key": "publish",
+      "label": "Publish Wiki Page",
+      "type": "agent",
+      "autoRun": false,
+      "instructionPath": "steps/publish.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "instruction": "Closed state. Final summary records wiki pages created/updated, source ledger, review result, and blockers."
+    }
+  ]
+}

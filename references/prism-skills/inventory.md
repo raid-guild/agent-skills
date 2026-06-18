@@ -10,8 +10,8 @@ Use this file to track current Prism skills and their migration target.
 | cookiejar-activity-reader | CookieJar V3 onchain withdrawal evidence | Onchain read APIs | Financial/onchain interpretation | rg-dao-ops | merge | Migrated to `skills/rg-dao-ops/references/cookiejar-evidence.md`. |
 | dao-proposal-watcher | DAOhaus/Moloch proposal watcher | DAOhaus/Moloch APIs, scheduler | Governance accuracy, notifications | rg-dao-ops | merge | Migrated to `skills/rg-dao-ops/references/proposal-watcher.md`. |
 | discord-send | Approved Discord send workflow | Communication adapter | Wrong destination, unapproved posting | rg-publishing-ops | merge | Migrated to `skills/rg-publishing-ops/references/discord-send.md`. |
-| hivemind-consult | Hivemind marketing copilot/API context | Hivemind API key | Source quality, private context | rg-research | reference | Research adapter unless robust scripts are added. |
-| hn-news-scout | HN scanning for post angles | Hacker News | Relevance, current claims | rg-research | reference | Research scouting workflow. |
+| hivemind-consult | Hivemind marketing copilot/API context | Hivemind API key | Source quality, private context | rg-research | reference | Folded into `rg-research` as Hivemind context guidance. |
+| hn-news-scout | HN scanning for post angles | Hacker News | Relevance, current claims | rg-research | reference | Folded into `rg-research` as HN scouting guidance. |
 | moloch-dao-ops | DAOhaus/Moloch inspect/propose/vote/process | meta-clawtel, moloch-agent | Governance transactions | rg-dao-ops | merge | Migrated to `skills/rg-dao-ops/references/moloch-agent.md`. |
 | nextcrm | CRM MCP operations | Nexus CRM / NextCRM MCP | Client/customer data privacy | rg-crm-ops | keep | Migrated to `skills/rg-crm-ops`; canonical implementation remains `https://github.com/raid-guild/nexus-crm`. |
 | portal-arcade-reporter | Portal Arcade read-only reporting | Game reporting APIs | Public/private leaderboard context | rg-portal-ops / workflow recipes | reference | API contract migrated to `skills/rg-portal-ops/references/arcade-agent-apis.md`; recurring reports stay workflows. |

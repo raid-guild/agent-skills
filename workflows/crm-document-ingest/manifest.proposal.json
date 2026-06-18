@@ -1,0 +1,39 @@
+{
+  "key": "crm-document-ingest",
+  "name": "CRM Document Ingest",
+  "version": 1,
+  "description": "Handle Nexus CRM document upload handoff events, normalize metadata, enrich CRM-linked context, and record Prism/request artifacts.",
+  "entrypoint": "intake",
+  "workflowPath": "workflow.md",
+  "supersedes": [
+    "crm-document-ingest-enrich@3"
+  ],
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "crm-document-ingest-agent",
+    "skills": [
+      "rg-crm-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "intake",
+      "label": "Ingest CRM Document",
+      "type": "agent",
+      "autoRun": true,
+      "instructionPath": "steps/intake.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "instruction": "Closed state. Final summary records CRM document id, normalized metadata, enrichment artifacts, and failures."
+    }
+  ]
+}

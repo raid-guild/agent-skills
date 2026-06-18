@@ -31,6 +31,7 @@ The Travis post should be treated as high-spice cultural source material. Its me
 Sources:
 
 - `https://github.com/raid-guild/handbook-v2`
+- `https://x.com/RaidGuild`
 - `RG_BRAND_AGENTS.md`
 - current brand/design system sources
 
@@ -39,6 +40,7 @@ Use for:
 - official terminology
 - visual/copy consistency
 - brand-safe defaults
+- official public social voice
 - documentation and site copy constraints
 - UI, design, and asset guidance
 
@@ -47,6 +49,8 @@ Do not use for:
 - deep cultural weirdness
 - member story tone
 - Queen Raida persona specificity
+
+The `@RaidGuild` X account should be treated as the official HQ public-social voice source. Keep it separate from Queen Raida's `@raidguildish` persona: `@RaidGuild` can speak as the guild account; Queen Raida can reference RaidGuild but should not impersonate HQ.
 
 ### 3. Agent Persona Sources
 
@@ -165,6 +169,7 @@ Select:
 
 - 10-20 origin stories or representative member pieces
 - 5-10 institutional docs/pages
+- 20-50 recent/high-signal `@RaidGuild` public posts when X access is available
 - all core Queen Raida docs
 - 10-20 live Prism Memory outputs that are source-grounded and public-safe
 - 3-5 high-spice cultural artifacts for edge texture
@@ -196,6 +201,15 @@ skills/rg-brand-voice/references/
 ├── channel-voice.md
 └── language-anti-patterns.md
 ```
+
+First extraction pass completed:
+
+- `raidguild-core-voice.md`: enriched from handbook-v2, RG brand notes, origin-story synthesis, and reviewed Prism Memory patterns.
+- `community-voice.md`: added from origin stories and member-facing Prism Memory patterns.
+- `cultural-spice.md`: added from origin stories, Travis Wyche high-spice cultural material, Moloch/commons framing, and Queen Raida media inspiration.
+- `queen-raida-voice.md`: enriched from Queen-Raida repo docs and examples.
+- `channel-voice.md`: expanded with Discord/community, buyer, and field-notes modulation.
+- `language-anti-patterns.md`: expanded with RaidGuild-specific failure modes and replacement moves.
 
 ### Phase 5: Score
 
