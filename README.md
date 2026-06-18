@@ -10,7 +10,8 @@ This repo is intentionally starting with **no published skills**. The first phas
 .
 ├── skills/                  # Published skills. Empty until a skill is refactored and validated.
 ├── references/
-│   └── prism-skills/        # Raw Prism skill exports and migration notes.
+│   ├── prism-skills/        # Prism custom skill reference exports and migration notes.
+│   └── prism-workflows/     # Prism workflow reference exports and migration notes.
 ├── docs/
 │   ├── architecture.md      # Skill design principles and boundaries.
 │   └── migration-plan.md    # Refactor workflow from Prism one-offs to repo skills.
@@ -19,7 +20,7 @@ This repo is intentionally starting with **no published skills**. The first phas
 
 ## Current Phase
 
-1. Dump the existing Prism skills into `references/prism-skills/raw/`.
+1. Dump the existing Prism skills into `references/prism-skills/<skill-name>/SKILL.md` and workflow references into `references/prism-workflows/`.
 2. Build an inventory in `references/prism-skills/inventory.md`.
 3. Group duplicated behavior into capability owners.
 4. Create only the first validated skills in `skills/`.

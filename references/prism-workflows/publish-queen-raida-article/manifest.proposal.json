@@ -1,0 +1,66 @@
+{
+  "key": "publish-queen-raida-article",
+  "name": "Publish Queen Raida Article",
+  "description": "Creates a Queen Raida website article in the Queen-Raida repo, with triage, approval, article markdown artifact creation, PR work, and final human review.",
+  "version": 1,
+  "entrypoint": "triage",
+  "workflowPath": "workflow.md",
+  "target": {
+    "kind": "repository",
+    "required": true,
+    "targetAppId": "0e85c359-2692-448c-9dbc-c64661e85517",
+    "repoUrl": "https://github.com/raid-guild/Queen-Raida",
+    "defaultBranch": "main"
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "queen-raida-article-workflow-agent",
+    "skills": [
+      "target-deploy-ops",
+      "public-social-output-sanitizer"
+    ],
+    "delegation": {
+      "allowed": false
+    }
+  },
+  "steps": [
+    {
+      "key": "triage",
+      "label": "Triage",
+      "type": "agent",
+      "instructionPath": "steps/triage.md",
+      "next": "approve"
+    },
+    {
+      "key": "approve",
+      "label": "Approve",
+      "type": "gate",
+      "routes": {
+        "approved": "work",
+        "changesRequested": "triage"
+      }
+    },
+    {
+      "key": "work",
+      "label": "Work",
+      "type": "agent",
+      "instructionPath": "steps/work.md",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Review",
+      "type": "gate",
+      "routes": {
+        "approved": "closed",
+        "changesRequested": "work"
+      }
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+Purpose: ingest a human-attached meeting transcript file into Prism Memory inbox. This workflow is intentionally narrow and one-off friendly. It does not require a repository target and must not use browser admin routes. Use /agent/* routes for request/artifact inspection and Prism Memory API writer routes for the memory inbox write.

@@ -1,0 +1,1 @@
+Human review gate. A human must approve, edit, reject, or request changes. The publish step must not run unless the selected final sanitizedText, target action, and target account are explicitly approved. Routes: approved -> publish, changesRequested -> draft, rejected -> closed.

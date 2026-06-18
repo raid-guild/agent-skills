@@ -1,0 +1,37 @@
+{
+  "key": "crm-document-ingest-enrich",
+  "name": "CRM Document Ingest Enrich",
+  "version": 3,
+  "description": "Handle NextCRM document upload handoff events and create Prism-side normalized metadata and enrichment artifacts.",
+  "entrypoint": "intake",
+  "workflowPath": "workflow.md",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "crm-document-ingest-agent",
+    "skills": [
+      "change-request-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "intake",
+      "label": "Ingest CRM Document",
+      "type": "agent",
+      "instructionPath": "steps/intake.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal"
+    }
+  ]
+}

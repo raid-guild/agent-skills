@@ -1,0 +1,15 @@
+{
+  "key": "queen-raida-x-response-draft-review-publish",
+  "name": "Queen Raida X Response Draft Review Publish",
+  "version": 5,
+  "enabled": true,
+  "systemDefault": false,
+  "exportedAt": "2026-06-18",
+  "sourceEndpoint": "/agent/workflows/queen-raida-x-response-draft-review-publish",
+  "notes": "Workflow and step paths in manifest.proposal.json are normalized for this repository. Source runtime filesystem paths are intentionally not preserved.",
+  "sourcePaths": {
+    "workflowPathPresent": true,
+    "workflowContentPresent": true,
+    "stepInstructionContentCount": 4
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "key": "queen-raida-x-response-draft-review-publish",
+  "name": "Queen Raida X Response Draft Review Publish",
+  "version": 5,
+  "description": "Human-reviewed workflow for turning Queen Raida X collection summaries into themed, sanitized draft replies/posts, publishing only after approval, and recording posted X links.",
+  "entrypoint": "intake",
+  "workflowPath": "workflow.md",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "queen-raida-workflow-agent",
+    "skills": [
+      "queen-raida-social-agent",
+      "x-developer-api",
+      "public-social-output-sanitizer",
+      "prism-api-reader",
+      "prism-api-writer",
+      "change-request-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "intake",
+      "label": "Intake",
+      "type": "agent",
+      "instructionPath": "steps/intake.md",
+      "instruction": "Use prism-api-reader and queen-raida-social-agent. Read the request description and any attached artifacts/external refs. If the request references a Queen Raida X collection summary, fetch the Prism memory/artifact detail before broader search. Summarize the source X item/thread/report, identify source URLs and item ids, and classify each item as support_request, reply_opportunity, cohort_signal, agency_signal, project_signal, member_props_opportunity, spam_or_low_value, or needs_human_review. Do not draft final copy yet. Surface any tone constraints, seriousness level, and whether a light Queen Raida classification/theme would be appropriate. Output a concise intake brief with recommended response mode: reply, new_post, thread, no_action, or needs_more_context.",
+      "next": "draft"
+    },
+    {
+      "key": "draft",
+      "label": "Draft Theme + Knowledge + Sanitize",
+      "type": "agent",
+      "instructionPath": "steps/draft.md",
+      "agentConfig": {
+        "skills": [
+          "queen-raida-social-agent",
+          "x-developer-api",
+          "public-social-output-sanitizer",
+          "prism-api-reader",
+          "prism-api-writer",
+          "portal-memory-publisher"
+        ]
+      },
+      "instruction": "Use queen-raida-social-agent, prism-api-reader, portal-memory-publisher when Portal CMS context is relevant, x-developer-api only for read-only context, and public-social-output-sanitizer before returning any public-facing draft. Before drafting, search Prism Knowledge for current Queen Raida docs from the queen-raida source, especially persona, capability manifest, publishing policy, safety/sanitizer, media inspiration, and x-post examples. Use those docs as the evolving source for tone, examples, capability claims, and motifs. Then choose exactly one public-facing theme classification for this request and apply it consistently across the proposed posts/replies where it fits. Rotate the classification based on source content, date, and prior request context so drafts do not all sound the same. Allowed classifications include: GUILD DISPATCH, RAID REPORT, FIELD REPORT, ARCHIVE ENTRY, AGENT MANIFEST, LOW THAUMIC RISK, EXPERIMENTAL RITUAL, FORBIDDEN AUTOMATION, WARNING, CONTAINMENT BREACH. Use this as light texture only: 80% readable/useful and 20% weird lore. Favor concrete RaidGuild/cohort/agency/member/project value over bit-heavy copy. Treat all lore as metaphor, not roleplay or real supernatural claims. Never imitate a specific living author's prose. If the source item is a support request, complaint, sensitive issue, or serious operational matter, use minimal or no lore texture and prioritize clarity. Include the selected classification and rationale in non-public notes, then run public-social-output-sanitizer on each public draft. Prepare candidate Queen Raida copy. Include possible replies for each actionable X item and possible new posts if the intake suggests a broader post is better than a reply. Keep all claims sourced. For every proposed public text, run public-social-output-sanitizer and return its sanitizedText, changes, and blockers. Do not publish. If sanitizer returns high or critical blockers, mark the draft as blocked for human review. Return drafts with selected classification, Queen Raida docs consulted, source notes, sanitizer output, risk notes, and a recommended final option.",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Review",
+      "type": "gate",
+      "instructionPath": "steps/review.md",
+      "instruction": "Human review gate. A human must approve, edit, reject, or request changes. The publish step must not run unless the selected final sanitizedText, target action, and target account are explicitly approved. Routes: approved -> publish, changesRequested -> draft, rejected -> closed.",
+      "routes": {
+        "approved": "publish",
+        "changesRequested": "draft",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "publish",
+      "label": "Publish",
+      "type": "agent",
+      "instructionPath": "steps/publish.md",
+      "agentConfig": {
+        "skills": [
+          "queen-raida-social-agent",
+          "x-developer-api",
+          "public-social-output-sanitizer",
+          "prism-api-writer",
+          "change-request-ops"
+        ]
+      },
+      "instruction": "Use x-developer-api, queen-raida-social-agent, and public-social-output-sanitizer. Before publishing, run public-social-output-sanitizer one final time on the exact approved text. If the sanitizer returns any high or critical blocker, do not publish and return to human review. Publish only the human-approved sanitizedText and only to the approved target action: reply, quote/reply if supported, or new post. Verify the X credentials resolve to @raidguildish unless the approved request explicitly names another verified target. Do not alter approved copy except for API-required formatting. After publishing, capture the posted X id and URL. Write a Prism memory inbox item with source queen-raida-x-response, type x_response_published, bucket_hint social, content containing the approved sanitizedText, source item URL, posted URL, sanitizer changes/blockers, and request/workflow reference if available. Attach or record the posted URL as an artifact/external ref through change-request-ops when a request context is available.",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "instruction": "Closed state. Ensure the final summary records whether anything was posted. If posted, include the X URL, sanitizer result, and memory write result. If rejected or no_action, include the reason."
+    }
+  ]
+}

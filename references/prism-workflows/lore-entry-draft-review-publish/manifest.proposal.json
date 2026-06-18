@@ -1,0 +1,100 @@
+{
+  "key": "lore-entry-draft-review-publish",
+  "name": "Lore Entry Draft Review Publish",
+  "version": 2,
+  "description": "Draft serialized fictional lore entries grounded in Queen Raida, RaidGuild knowledge, and evolving world continuity, with generated images and Payload CMS draft publishing tagged as lore.",
+  "entrypoint": "intake",
+  "workflowPath": "workflow.md",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "prism-lore-workflow-agent",
+    "skills": [
+      "prism-api-reader",
+      "queen-raida-social-agent",
+      "public-social-output-sanitizer",
+      "portal-memory-publisher"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 1
+    }
+  },
+  "steps": [
+    {
+      "key": "intake",
+      "label": "Intake",
+      "type": "agent",
+      "instructionPath": "steps/intake.md",
+      "next": "arc-plan"
+    },
+    {
+      "key": "arc-plan",
+      "label": "Arc Plan",
+      "type": "agent",
+      "instructionPath": "steps/arc-plan.md",
+      "next": "draft"
+    },
+    {
+      "key": "draft",
+      "label": "Draft",
+      "type": "agent",
+      "instructionPath": "steps/draft.md",
+      "next": "media-plan"
+    },
+    {
+      "key": "media-plan",
+      "label": "Media Plan",
+      "type": "agent",
+      "instructionPath": "steps/media-plan.md",
+      "next": "generate-images"
+    },
+    {
+      "key": "generate-images",
+      "label": "Generate Images",
+      "type": "agent",
+      "instructionPath": "steps/generate-images.md",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Review",
+      "type": "gate",
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approved": "publish-prep",
+        "changesRequested": "revise",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "revise",
+      "label": "Revise",
+      "type": "agent",
+      "instructionPath": "steps/revise.md",
+      "next": "review"
+    },
+    {
+      "key": "publish-prep",
+      "label": "Publish Prep",
+      "type": "agent",
+      "instructionPath": "steps/publish-prep.md",
+      "next": "publish"
+    },
+    {
+      "key": "publish",
+      "label": "Publish",
+      "type": "agent",
+      "instructionPath": "steps/publish.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal"
+    }
+  ]
+}

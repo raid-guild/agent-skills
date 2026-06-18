@@ -1,0 +1,82 @@
+{
+  "key": "daily-memory-brief-review",
+  "name": "Daily Memory Brief Review",
+  "version": 3,
+  "description": "Create a concise Prism Memory brief, route it through review, publish it to Payload CMS as a draft, and close the request.",
+  "entrypoint": "draft",
+  "workflowPath": "workflow.md",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "prism-workflow-agent",
+    "skills": [
+      "prism-api-reader"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 1
+    }
+  },
+  "steps": [
+    {
+      "key": "draft",
+      "label": "Draft",
+      "type": "agent",
+      "statusMap": [
+        "submitted",
+        "triaging",
+        "needs-human-input",
+        "ready-for-agent",
+        "in-progress"
+      ],
+      "instructionPath": "steps/draft.md",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Review",
+      "type": "gate",
+      "statusMap": [
+        "awaiting-review"
+      ],
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approved": "publish",
+        "changesRequested": "revise",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "revise",
+      "label": "Revise",
+      "type": "agent",
+      "statusMap": [
+        "changes-requested"
+      ],
+      "instructionPath": "steps/revise.md",
+      "next": "review"
+    },
+    {
+      "key": "publish",
+      "label": "Publish",
+      "type": "agent",
+      "statusMap": [
+        "approved"
+      ],
+      "instructionPath": "steps/publish.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "statusMap": [
+        "rejected",
+        "closed"
+      ]
+    }
+  ]
+}

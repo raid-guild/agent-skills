@@ -1,0 +1,15 @@
+{
+  "key": "internal-daily-brief-podcast-publish",
+  "name": "Internal Daily Brief Podcast Publish",
+  "version": 7,
+  "enabled": true,
+  "systemDefault": false,
+  "exportedAt": "2026-06-18",
+  "sourceEndpoint": "/agent/workflows/internal-daily-brief-podcast-publish",
+  "notes": "Workflow and step paths in manifest.proposal.json are normalized for this repository. Source runtime filesystem paths are intentionally not preserved.",
+  "sourcePaths": {
+    "workflowPathPresent": true,
+    "workflowContentPresent": true,
+    "stepInstructionContentCount": 11
+  }
+}

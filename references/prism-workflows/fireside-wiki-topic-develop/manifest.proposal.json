@@ -1,0 +1,136 @@
+{
+  "key": "fireside-wiki-topic-develop",
+  "name": "Fireside Wiki Topic Develop",
+  "version": 4,
+  "description": "Create or update one or more Portal wikiPages from a fireside session topic or research seed, using Wikipedia-style topic decomposition, source ledgering, and structured wiki data models before drafting.",
+  "entrypoint": "intake",
+  "workflowPath": "workflow.md",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "fireside-wiki-topic-agent",
+    "skills": [
+      "prism-api-reader",
+      "portal-ops-skill",
+      "rg-scribe-publisher-skill",
+      "hn-news-scout",
+      "public-social-output-sanitizer",
+      "change-request-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 1
+    }
+  },
+  "steps": [
+    {
+      "key": "intake",
+      "label": "Wiki Intake",
+      "type": "agent",
+      "statusMap": [
+        "submitted",
+        "triaging",
+        "needs-human-input"
+      ],
+      "instructionPath": "steps/intake.md",
+      "next": "inquiry-map"
+    },
+    {
+      "key": "inquiry-map",
+      "label": "Inquiry Map",
+      "type": "agent",
+      "statusMap": [
+        "ready-for-agent",
+        "in-progress"
+      ],
+      "instructionPath": "steps/inquiry-map.md",
+      "next": "wiki-topic-map"
+    },
+    {
+      "key": "wiki-topic-map",
+      "label": "Wiki Topic Map",
+      "type": "agent",
+      "statusMap": [
+        "in-progress"
+      ],
+      "instructionPath": "steps/wiki-topic-map.md",
+      "next": "source-research"
+    },
+    {
+      "key": "source-research",
+      "label": "Source Research",
+      "type": "agent",
+      "statusMap": [
+        "in-progress"
+      ],
+      "instructionPath": "steps/source-research.md",
+      "next": "wiki-data-model"
+    },
+    {
+      "key": "wiki-data-model",
+      "label": "Wiki Data Model",
+      "type": "agent",
+      "statusMap": [
+        "in-progress"
+      ],
+      "instructionPath": "steps/wiki-data-model.md",
+      "next": "draft-wiki-page"
+    },
+    {
+      "key": "draft-wiki-page",
+      "label": "Draft Wiki Page",
+      "type": "agent",
+      "statusMap": [
+        "in-progress"
+      ],
+      "instructionPath": "steps/draft-wiki-page.md",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Wiki Review",
+      "type": "gate",
+      "statusMap": [
+        "awaiting-review"
+      ],
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approved": "publish-wiki-page",
+        "changesRequested": "revise",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "revise",
+      "label": "Revise Wiki Page",
+      "type": "agent",
+      "statusMap": [
+        "changes-requested"
+      ],
+      "instructionPath": "steps/revise.md",
+      "next": "review"
+    },
+    {
+      "key": "publish-wiki-page",
+      "label": "Publish Wiki Page",
+      "type": "agent",
+      "statusMap": [
+        "approved"
+      ],
+      "instructionPath": "steps/publish-wiki-page.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "statusMap": [
+        "closed",
+        "rejected"
+      ]
+    }
+  ]
+}

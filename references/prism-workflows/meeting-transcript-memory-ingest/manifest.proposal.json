@@ -1,0 +1,61 @@
+{
+  "key": "meeting-transcript-memory-ingest",
+  "name": "Meeting Transcript Memory Ingest",
+  "version": 1,
+  "description": "One-off human-assisted workflow for attaching a meeting transcript file and ingesting it into the Prism Memory inbox as a meeting transcript artifact.",
+  "entrypoint": "attach-transcript",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "meeting-transcript-ingest-agent",
+    "skills": [
+      "change-request-ops",
+      "prism-api-writer"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "attach-transcript",
+      "label": "Attach Transcript File",
+      "type": "gate",
+      "statusMap": [
+        "needs-human-input",
+        "awaiting-review"
+      ],
+      "routes": {
+        "approved": "ingest-transcript",
+        "changesRequested": "attach-transcript",
+        "rejected": "closed"
+      },
+      "instructionPath": "steps/attach-transcript.md"
+    },
+    {
+      "key": "ingest-transcript",
+      "label": "Ingest Transcript To Memory Inbox",
+      "type": "agent",
+      "statusMap": [
+        "ready-for-agent",
+        "in-progress"
+      ],
+      "next": "closed",
+      "instructionPath": "steps/ingest-transcript.md"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "statusMap": [
+        "closed",
+        "rejected"
+      ]
+    }
+  ],
+  "workflowPath": "workflow.md"
+}

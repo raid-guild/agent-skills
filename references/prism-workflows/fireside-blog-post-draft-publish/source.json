@@ -1,0 +1,15 @@
+{
+  "key": "fireside-blog-post-draft-publish",
+  "name": "Fireside Blog Post Draft Publish",
+  "version": 13,
+  "enabled": true,
+  "systemDefault": false,
+  "exportedAt": "2026-06-18",
+  "sourceEndpoint": "/agent/workflows/fireside-blog-post-draft-publish",
+  "notes": "Workflow and step paths in manifest.proposal.json are normalized for this repository. Source runtime filesystem paths are intentionally not preserved.",
+  "sourcePaths": {
+    "workflowPathPresent": true,
+    "workflowContentPresent": true,
+    "stepInstructionContentCount": 6
+  }
+}

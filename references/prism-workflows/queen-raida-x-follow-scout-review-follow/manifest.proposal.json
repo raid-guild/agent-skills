@@ -1,0 +1,69 @@
+{
+  "key": "queen-raida-x-follow-scout-review-follow",
+  "name": "Queen Raida X Follow Scout Review Follow",
+  "version": 1,
+  "description": "Human-reviewed workflow for discovering Queen Raida X follow candidates from Portal CMS, RaidGuild/member seed accounts, and X graph/search signals, then following only approved accounts.",
+  "entrypoint": "discover",
+  "workflowPath": "workflow.md",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "queen-raida-follow-scout-agent",
+    "skills": [
+      "queen-raida-social-agent",
+      "x-developer-api",
+      "prism-api-reader",
+      "prism-api-writer",
+      "change-request-ops",
+      "portal-memory-publisher"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "discover",
+      "label": "Discover Candidates",
+      "type": "agent",
+      "instructionPath": "steps/discover.md",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Review Follow Candidates",
+      "type": "gate",
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approved": "follow",
+        "changesRequested": "discover",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "follow",
+      "label": "Follow Approved Accounts",
+      "type": "agent",
+      "instructionPath": "steps/follow.md",
+      "agentConfig": {
+        "skills": [
+          "x-developer-api",
+          "queen-raida-social-agent",
+          "prism-api-writer",
+          "change-request-ops"
+        ]
+      },
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "instructionPath": "steps/closed.md"
+    }
+  ]
+}
