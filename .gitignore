@@ -1,0 +1,16 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+build/
+coverage/
+.cache/
+.tmp/
+tmp/
+*.log
+
+# Local exports that may contain secrets or client-private data.
+references/prism-skills/raw/private/
+references/prism-skills/raw/**/*.secret.*
