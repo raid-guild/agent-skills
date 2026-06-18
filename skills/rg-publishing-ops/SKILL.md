@@ -34,7 +34,7 @@ Read only the references needed:
 Use `rg-content-strategy` for what to say.
 Use `rg-brand-voice` for how it should sound.
 Use `rg-public-output-safety` before anything public is sent or queued.
-Use `portal-ops` for Portal CMS records, post drafts, wiki pages, sessions, and Portal artifacts.
+Use `rg-portal-ops` for Portal CMS records, post drafts, wiki pages, sessions, and Portal artifacts.
 
 ## Modes
 

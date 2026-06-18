@@ -1,0 +1,4 @@
+interface:
+  display_name: "RaidGuild CRM Ops"
+  short_description: "NextCRM MCP and CRM workflow operations."
+  default_prompt: "Inspect or prepare a safe NextCRM operation."

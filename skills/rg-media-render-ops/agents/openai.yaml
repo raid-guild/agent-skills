@@ -1,0 +1,4 @@
+interface:
+  display_name: "RaidGuild Media Render Ops"
+  short_description: "Remotion and media render diagnostics."
+  default_prompt: "Validate or repair this media render payload and input artifacts."

@@ -124,7 +124,7 @@ References to create:
 
 This skill should require `rg-public-output-safety` before any public post is queued or sent. It should not own voice or strategy.
 
-### 6. `portal-ops`
+### 6. `rg-portal-ops`
 
 Owns Portal CMS and Payload API operations.
 
@@ -146,6 +146,13 @@ References to create:
 - `references/confidence-and-review.md`
 
 The current `portal-ops-skill` is too large for a single `SKILL.md`. Keep only operating rules, source inputs, routing, and safety in the main file; move endpoint-specific material into references.
+
+Canonical app-specific source remains the Portal repo's in-repo skill package:
+
+- `https://github.com/raid-guild/portal`
+- `.agents/skills/portal-ops-skill/`
+
+This repo should carry the portable distilled skill and cross-capability boundaries; use the Portal repo for current field schemas, endpoint drift, and app-local implementation details.
 
 ### 7. `rg-dao-ops`
 
@@ -185,6 +192,14 @@ References to create:
 - `references/privacy-rules.md`
 
 This should stay separate because CRM data has different privacy and operational risks than public content.
+
+Canonical app-specific source remains the Nexus CRM repo:
+
+- `https://github.com/raid-guild/nexus-crm`
+- MCP implementation under `lib/mcp/`
+- route implementation under `app/api/mcp/[transport]/route.ts`
+
+This repo should carry portable operator guidance, privacy boundaries, workflow handoffs, and cross-skill routing.
 
 ### 9. `rg-media-render-ops`
 
@@ -257,7 +272,7 @@ Use a Queen Raida X draft from workflow source material. The expected route is s
 Created:
 
 1. `rg-publishing-ops`
-2. `portal-ops`
+2. `rg-portal-ops`
 
 Validation task:
 
@@ -276,11 +291,13 @@ Use read-only governance checks, build-only proposal payloads, Bankr prompt plan
 
 ### Phase 4: Data And Media Ops
 
-Create:
+Created:
 
 1. `rg-crm-ops`
 2. `rg-media-render-ops`
-3. `portal-arcade-reporter`
+3. `s3-object-storage`
+
+Folded Portal Arcade API details into `rg-portal-ops/references/arcade-agent-apis.md` instead of creating a standalone `portal-arcade-reporter` skill. Recurring arcade reports should remain workflow recipes unless reporting becomes a broader durable capability.
 
 Validation task:
 

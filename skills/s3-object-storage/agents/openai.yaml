@@ -1,0 +1,4 @@
+interface:
+  display_name: "S3 Object Storage"
+  short_description: "S3-compatible upload and URL handling."
+  default_prompt: "Upload this artifact to object storage and return durable URL evidence."

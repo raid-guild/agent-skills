@@ -30,15 +30,18 @@ The first shared content slice has been created:
 - `skills/rg-content-strategy`
 - `skills/rg-public-output-safety`
 - `skills/rg-publishing-ops`
-- `skills/portal-ops`
+- `skills/rg-portal-ops`
 - `skills/rg-dao-ops`
 - `skills/rg-bankr-ops`
+- `skills/s3-object-storage`
+- `skills/rg-media-render-ops`
+- `skills/rg-crm-ops`
 
 Next migration work:
 
 1. Enrich the first-slice references from the voice corpus and Prism workflows.
-2. Forward-test content, publishing, and Portal flows on realistic Queen Raida, AI Solutions, and public RaidGuild tasks.
-3. Refactor CRM, media, and arcade/reporting operations next.
+2. Forward-test content, publishing, Portal, DAO, CRM, and media flows on realistic tasks.
+3. Keep recurring reports and campaign recipes as workflows instead of new skills.
 
 ## Skill Standard
 
@@ -62,6 +65,8 @@ These are planning buckets; some are now represented by first-pass skills:
 - Publishing operations
 - Portal and CMS operations
 - CRM operations
+- Object storage operations
+- Media render operations
 - DAO operations
 - Bankr and token operations
 - Skill architecture and migration

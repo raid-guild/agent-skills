@@ -1,5 +1,5 @@
 ---
-name: portal-ops
+name: rg-portal-ops
 description: Use when Codex needs to inspect, plan, create, or update RaidGuild Portal CMS records through safe Payload API workflows, including sessions/events, posts, wiki pages, briefs, projects, threads, activity items, profiles, spotlights, CMS-managed page copy, event artifacts, resources, and source-grounded memory updates. Prefer reviewable plans and drafts unless the target environment, source facts, account, and approval are clear. Not for general content strategy, brand voice polish, or non-Portal publishing sends.
 ---
 
@@ -17,6 +17,14 @@ When writing as automation, use a dedicated agent account. Do not use a human co
 
 ## Routing
 
+Canonical app-specific source:
+
+- Portal repo: `https://github.com/raid-guild/portal`
+- Canonical Portal skill package: `.agents/skills/portal-ops-skill/`
+- Local checkout when available: `/home/dekanjbrown/Projects/raidguild/portal/.agents/skills/portal-ops-skill/`
+
+For field-level API details, current collection behavior, or endpoint drift, prefer the Portal repo's canonical skill and references over this distilled repo copy.
+
 Read only the references needed:
 
 - Portal primitives: `references/primitives.md`
@@ -25,10 +33,11 @@ Read only the references needed:
 - Posts and images: `references/posts-and-images.md`
 - Wiki pages: `references/wiki-pages.md`
 - CMS page copy: `references/page-copy.md`
+- Portal Arcade read-only APIs: `references/arcade-agent-apis.md`
 - Confidence, create/update rules, and output shape: `references/confidence-and-review.md`
 
-Use repo-level `references/portal-cms-model.md` when field-level detail is needed.
-Use repo-level `references/example-digest-mapping.md` for example memory-to-Portal mapping.
+Use repo-level `references/portal-cms-model.md` only as a snapshot when the Portal repo is unavailable.
+Use repo-level `references/example-digest-mapping.md` as a snapshot example for memory-to-Portal mapping.
 
 Use `rg-content-strategy` before Portal post/wiki drafting when the angle is unclear.
 Use `rg-brand-voice` before final public copy.
