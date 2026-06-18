@@ -1,0 +1,129 @@
+{
+  "key": "field-notes-from-fireside",
+  "name": "Field Notes From Fireside",
+  "version": 17,
+  "description": "Create source-backed fireside source packs, topic maps, media briefs, Portal event artifact resources, and a Bard Calendar X draft for later review/scheduling, then spawn non-autostart child requests for follow-on blog, wiki, and recap video work. The parent workflow does not create Portal post drafts, render videos, or publish to X.",
+  "entrypoint": "intake",
+  "workflowPath": "workflow.md",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "fireside-field-notes-agent",
+    "skills": [
+      "prism-api-reader",
+      "portal-ops-skill",
+      "rg-scribe-publisher-skill",
+      "public-social-output-sanitizer",
+      "x-developer-api",
+      "change-request-ops",
+      "bard-calendar-ops"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 1
+    }
+  },
+  "steps": [
+    {
+      "key": "intake",
+      "label": "Session Intake",
+      "type": "agent",
+      "statusMap": [
+        "submitted",
+        "triaging",
+        "needs-human-input"
+      ],
+      "instructionPath": "steps/intake.md",
+      "next": "source-pack"
+    },
+    {
+      "key": "source-pack",
+      "label": "Source Pack",
+      "type": "agent",
+      "statusMap": [
+        "ready-for-agent",
+        "in-progress"
+      ],
+      "instructionPath": "steps/source-pack.md",
+      "next": "angle-plan"
+    },
+    {
+      "key": "angle-plan",
+      "label": "Angle Plan",
+      "type": "agent",
+      "statusMap": [
+        "in-progress"
+      ],
+      "instructionPath": "steps/angle-plan.md",
+      "next": "media-brief"
+    },
+    {
+      "key": "media-brief",
+      "label": "Media Brief",
+      "type": "agent",
+      "statusMap": [
+        "in-progress"
+      ],
+      "instructionPath": "steps/media-brief.md",
+      "next": "publish-session-artifacts"
+    },
+    {
+      "key": "publish-session-artifacts",
+      "label": "Publish Session Artifacts",
+      "type": "agent",
+      "statusMap": [
+        "in-progress"
+      ],
+      "instructionPath": "steps/publish-session-artifacts.md",
+      "next": "angle-review"
+    },
+    {
+      "key": "angle-review",
+      "label": "Angle Review",
+      "type": "gate",
+      "statusMap": [
+        "awaiting-review"
+      ],
+      "instructionPath": "steps/angle-review.md",
+      "routes": {
+        "approved": "bard-calendar-x-draft",
+        "changesRequested": "angle-plan",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "bard-calendar-x-draft",
+      "label": "Bard Calendar X Draft",
+      "type": "agent",
+      "statusMap": [
+        "approved",
+        "in-progress"
+      ],
+      "instructionPath": "steps/bard-calendar-x-draft.md",
+      "next": "spawn-content-requests"
+    },
+    {
+      "key": "spawn-content-requests",
+      "label": "Spawn Content Requests",
+      "type": "agent",
+      "statusMap": [
+        "approved",
+        "in-progress"
+      ],
+      "instructionPath": "steps/spawn-content-requests.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "statusMap": [
+        "closed",
+        "rejected"
+      ]
+    }
+  ]
+}

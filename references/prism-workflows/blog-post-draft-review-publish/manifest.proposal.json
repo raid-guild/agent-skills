@@ -1,0 +1,129 @@
+{
+  "key": "blog-post-draft-review-publish",
+  "name": "Blog Post Draft Review Publish",
+  "version": 9,
+  "description": "Draft, plan media, generate images, review, revise, prepare, and publish blog posts to Payload CMS without requiring a repository target.",
+  "entrypoint": "intake",
+  "workflowPath": "workflow.md",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "prism-workflow-agent",
+    "skills": [
+      "prism-api-reader",
+      "portal-memory-publisher"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 1
+    }
+  },
+  "steps": [
+    {
+      "key": "intake",
+      "label": "Intake",
+      "type": "agent",
+      "statusMap": [
+        "submitted",
+        "triaging",
+        "needs-human-input"
+      ],
+      "instructionPath": "steps/intake.md",
+      "next": "draft"
+    },
+    {
+      "key": "draft",
+      "label": "Draft",
+      "type": "agent",
+      "statusMap": [
+        "ready-for-agent",
+        "in-progress"
+      ],
+      "instructionPath": "steps/draft.md",
+      "next": "media-plan"
+    },
+    {
+      "key": "media-plan",
+      "label": "Media Plan",
+      "type": "agent",
+      "statusMap": [
+        "in-progress"
+      ],
+      "instructionPath": "steps/media-plan.md",
+      "next": "generate-images"
+    },
+    {
+      "key": "generate-images",
+      "label": "Generate Images",
+      "type": "agent",
+      "statusMap": [
+        "in-progress"
+      ],
+      "instructionPath": "steps/generate-images.md",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Review",
+      "type": "gate",
+      "statusMap": [
+        "awaiting-review"
+      ],
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approved": "publish-prep",
+        "changesRequested": "revise",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "revise",
+      "label": "Revise",
+      "type": "agent",
+      "statusMap": [
+        "changes-requested"
+      ],
+      "instructionPath": "steps/revise.md",
+      "next": "review"
+    },
+    {
+      "key": "publish-prep",
+      "label": "Publish Prep",
+      "type": "agent",
+      "statusMap": [
+        "approved"
+      ],
+      "instructionPath": "steps/publish-prep.md",
+      "next": "validate-rich-text"
+    },
+    {
+      "key": "validate-rich-text",
+      "label": "Validate Rich Text",
+      "type": "agent",
+      "instructionPath": "steps/validate-rich-text.md",
+      "next": "publish"
+    },
+    {
+      "key": "publish",
+      "label": "Publish",
+      "type": "agent",
+      "statusMap": [
+        "approved"
+      ],
+      "instructionPath": "steps/publish.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "statusMap": [
+        "rejected",
+        "closed"
+      ]
+    }
+  ]
+}

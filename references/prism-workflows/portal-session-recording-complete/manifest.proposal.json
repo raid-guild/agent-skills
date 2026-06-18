@@ -1,0 +1,56 @@
+{
+  "key": "portal-session-recording-complete",
+  "name": "Portal Session Recording Complete",
+  "version": 4,
+  "description": "Processes Discord recording completion hooks through small audited agent steps for intake, artifact ingest, recurrence planning, and recurrence application.",
+  "entrypoint": "intake",
+  "workflowPath": "workflow.md",
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "portal-session-recording-agent",
+    "skills": [
+      "prism-api-reader",
+      "portal-memory-publisher"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 0
+    }
+  },
+  "steps": [
+    {
+      "key": "intake",
+      "label": "Intake",
+      "type": "agent",
+      "instructionPath": "steps/intake.md",
+      "next": "ingest-artifacts"
+    },
+    {
+      "key": "ingest-artifacts",
+      "label": "Ingest Artifacts",
+      "type": "agent",
+      "instructionPath": "steps/ingest-artifacts.md",
+      "next": "plan-next-occurrence"
+    },
+    {
+      "key": "plan-next-occurrence",
+      "label": "Plan Next Occurrence",
+      "type": "agent",
+      "instructionPath": "steps/plan-next-occurrence.md",
+      "next": "apply-next-occurrence"
+    },
+    {
+      "key": "apply-next-occurrence",
+      "label": "Apply Next Occurrence",
+      "type": "agent",
+      "instructionPath": "steps/apply-next-occurrence.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal"
+    }
+  ]
+}

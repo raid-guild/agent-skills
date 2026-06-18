@@ -1,0 +1,83 @@
+{
+  "key": "queen-raida-portal-launch-campaign",
+  "name": "Queen Raida Portal Launch Campaign",
+  "version": 3,
+  "description": "Autonomous Queen Raida Portal launch campaign workflow with campaign state, X draft/post generation, image generation, sanitizer enforcement, X publishing, state advancement, and Discord notification.",
+  "entrypoint": "load-campaign-state",
+  "workflowPath": "workflow.md",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "queen-raida-campaign-agent",
+    "skills": [
+      "prism-api-reader",
+      "queen-raida-social-agent",
+      "public-social-output-sanitizer",
+      "x-developer-api",
+      "discord-send"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 1
+    }
+  },
+  "steps": [
+    {
+      "key": "load-campaign-state",
+      "label": "Load Campaign State",
+      "type": "agent",
+      "instructionPath": "steps/load-campaign-state.md",
+      "next": "draft-post"
+    },
+    {
+      "key": "draft-post",
+      "label": "Draft Post",
+      "type": "agent",
+      "instructionPath": "steps/draft-post.md",
+      "next": "generate-media"
+    },
+    {
+      "key": "generate-media",
+      "label": "Generate Media",
+      "type": "agent",
+      "instructionPath": "steps/generate-media.md",
+      "next": "sanitize-output"
+    },
+    {
+      "key": "sanitize-output",
+      "label": "Sanitize Public Output",
+      "type": "agent",
+      "instructionPath": "steps/sanitize-output.md",
+      "next": "publish-to-x"
+    },
+    {
+      "key": "publish-to-x",
+      "label": "Publish To X",
+      "type": "agent",
+      "instructionPath": "steps/publish-to-x.md",
+      "next": "advance-campaign-state"
+    },
+    {
+      "key": "advance-campaign-state",
+      "label": "Advance Campaign State",
+      "type": "agent",
+      "instructionPath": "steps/advance-campaign-state.md",
+      "next": "notify-discord"
+    },
+    {
+      "key": "notify-discord",
+      "label": "Notify Discord",
+      "type": "agent",
+      "instructionPath": "steps/notify-discord.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal"
+    }
+  ]
+}

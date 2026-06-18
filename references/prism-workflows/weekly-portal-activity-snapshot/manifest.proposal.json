@@ -1,0 +1,53 @@
+{
+  "key": "weekly-portal-activity-snapshot",
+  "name": "Weekly Portal Activity Snapshot",
+  "version": 1,
+  "description": "Workflow-backed weekly Portal CMS activity snapshot: get Portal data, create a report, and post it to Discord #so-dev.",
+  "entrypoint": "get-data",
+  "workflowPath": "workflow.md",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "prism-workflow-agent",
+    "skills": [
+      "prism-api-reader",
+      "prism-api-writer",
+      "discord-send"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 1
+    }
+  },
+  "steps": [
+    {
+      "key": "get-data",
+      "label": "Get Data",
+      "type": "agent",
+      "instructionPath": "steps/get-data.md",
+      "next": "create-report"
+    },
+    {
+      "key": "create-report",
+      "label": "Create Report",
+      "type": "agent",
+      "instructionPath": "steps/create-report.md",
+      "next": "post-discord"
+    },
+    {
+      "key": "post-discord",
+      "label": "Post To Discord",
+      "type": "agent",
+      "instructionPath": "steps/post-discord.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal"
+    }
+  ]
+}

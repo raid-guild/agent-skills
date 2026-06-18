@@ -1,0 +1,144 @@
+{
+  "key": "fireside-recap-video-publish",
+  "name": "Fireside Recap Video Publish",
+  "version": 1,
+  "description": "Create a source-grounded recap video for one completed Portal fireside session: extract five highlights from attached artifacts, prepare narration and YouTube description, render FiresideRecapScene through Remotion, review the completed job, and attach the final video artifacts back to the session.",
+  "entrypoint": "session-intake",
+  "workflowPath": "workflow.md",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "fireside-recap-video-agent",
+    "skills": [
+      "prism-api-reader",
+      "portal-ops-skill",
+      "remotion-composition-checker",
+      "workflow-audio-bucket-uploader",
+      "public-social-output-sanitizer"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 1
+    }
+  },
+  "steps": [
+    {
+      "key": "session-intake",
+      "label": "Session Intake",
+      "type": "agent",
+      "statusMap": [
+        "submitted",
+        "triaging",
+        "needs-human-input"
+      ],
+      "next": "recap-plan",
+      "instructionPath": "steps/session-intake.md"
+    },
+    {
+      "key": "recap-plan",
+      "label": "Recap Plan",
+      "type": "agent",
+      "statusMap": [
+        "ready-for-agent",
+        "in-progress"
+      ],
+      "next": "review",
+      "instructionPath": "steps/recap-plan.md"
+    },
+    {
+      "key": "review",
+      "label": "Recap Review",
+      "type": "gate",
+      "statusMap": [
+        "awaiting-review"
+      ],
+      "routes": {
+        "approved": "tts-render",
+        "changesRequested": "recap-plan",
+        "rejected": "closed"
+      },
+      "instructionPath": "steps/review.md"
+    },
+    {
+      "key": "tts-render",
+      "label": "TTS Render",
+      "type": "agent",
+      "statusMap": [
+        "approved",
+        "in-progress"
+      ],
+      "next": "remotion-prep",
+      "instructionPath": "steps/tts-render.md"
+    },
+    {
+      "key": "remotion-prep",
+      "label": "Remotion Prep",
+      "type": "agent",
+      "statusMap": [
+        "approved",
+        "in-progress"
+      ],
+      "next": "video-render",
+      "instructionPath": "steps/remotion-prep.md"
+    },
+    {
+      "key": "video-render",
+      "label": "Video Render",
+      "type": "agent",
+      "statusMap": [
+        "approved",
+        "in-progress"
+      ],
+      "next": "render-status-check",
+      "instructionPath": "steps/video-render.md"
+    },
+    {
+      "key": "render-status-check",
+      "label": "Render Status Check",
+      "type": "checkpoint",
+      "statusMap": [
+        "approved",
+        "in-progress"
+      ],
+      "next": "final-review",
+      "instructionPath": "steps/render-status-check.md"
+    },
+    {
+      "key": "final-review",
+      "label": "Final Review",
+      "type": "gate",
+      "statusMap": [
+        "awaiting-review"
+      ],
+      "routes": {
+        "approved": "publish-session-resources",
+        "changesRequested": "remotion-prep",
+        "rejected": "closed"
+      },
+      "instructionPath": "steps/final-review.md"
+    },
+    {
+      "key": "publish-session-resources",
+      "label": "Publish Session Resources",
+      "type": "agent",
+      "statusMap": [
+        "approved",
+        "in-progress"
+      ],
+      "next": "closed",
+      "instructionPath": "steps/publish-session-resources.md"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "statusMap": [
+        "closed",
+        "rejected"
+      ]
+    }
+  ]
+}

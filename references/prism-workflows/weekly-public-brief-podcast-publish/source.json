@@ -1,0 +1,15 @@
+{
+  "key": "weekly-public-brief-podcast-publish",
+  "name": "Weekly Public Brief Podcast Publish",
+  "version": 9,
+  "enabled": true,
+  "systemDefault": false,
+  "exportedAt": "2026-06-18",
+  "sourceEndpoint": "/agent/workflows/weekly-public-brief-podcast-publish",
+  "notes": "Workflow and step paths in manifest.proposal.json are normalized for this repository. Source runtime filesystem paths are intentionally not preserved.",
+  "sourcePaths": {
+    "workflowPathPresent": true,
+    "workflowContentPresent": true,
+    "stepInstructionContentCount": 11
+  }
+}

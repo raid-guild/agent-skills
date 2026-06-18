@@ -1,0 +1,150 @@
+{
+  "key": "internal-daily-brief-podcast-publish",
+  "name": "Internal Daily Brief Podcast Publish",
+  "version": 7,
+  "description": "Create an internal daily brief for members, expand the date window when needed, generate podcast audio and Remotion media, and publish the approved result internally.",
+  "entrypoint": "period-intake",
+  "workflowPath": "workflow.md",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "prism-workflow-agent",
+    "skills": [
+      "prism-api-reader",
+      "portal-memory-publisher",
+      "remotion-composition-checker",
+      "workflow-audio-bucket-uploader"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 1
+    }
+  },
+  "steps": [
+    {
+      "key": "period-intake",
+      "label": "Period Intake",
+      "type": "agent",
+      "statusMap": [
+        "submitted",
+        "triaging",
+        "needs-human-input"
+      ],
+      "instructionPath": "steps/period-intake.md",
+      "next": "internal-summary"
+    },
+    {
+      "key": "internal-summary",
+      "label": "Internal Summary",
+      "type": "agent",
+      "statusMap": [
+        "ready-for-agent",
+        "in-progress"
+      ],
+      "instructionPath": "steps/internal-summary.md",
+      "next": "podcast-script"
+    },
+    {
+      "key": "podcast-script",
+      "label": "Podcast Script",
+      "type": "agent",
+      "statusMap": [
+        "in-progress"
+      ],
+      "instructionPath": "steps/podcast-script.md",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Review",
+      "type": "gate",
+      "statusMap": [
+        "awaiting-review"
+      ],
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approved": "tts-render",
+        "changesRequested": "internal-summary",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "tts-render",
+      "label": "TTS Render",
+      "type": "agent",
+      "statusMap": [
+        "approved"
+      ],
+      "instructionPath": "steps/tts-render.md",
+      "next": "remotion-prep"
+    },
+    {
+      "key": "remotion-prep",
+      "label": "Remotion Prep",
+      "type": "agent",
+      "statusMap": [
+        "approved"
+      ],
+      "instructionPath": "steps/remotion-prep.md",
+      "next": "video-render"
+    },
+    {
+      "key": "video-render",
+      "label": "Video Render",
+      "type": "agent",
+      "statusMap": [
+        "approved"
+      ],
+      "instructionPath": "steps/video-render.md",
+      "next": "render-status-check"
+    },
+    {
+      "key": "render-status-check",
+      "label": "Render Status Check",
+      "type": "checkpoint",
+      "statusMap": [
+        "approved"
+      ],
+      "instructionPath": "steps/render-status-check.md",
+      "resumeLabel": "Check render job status",
+      "next": "final-review"
+    },
+    {
+      "key": "final-review",
+      "label": "Final Review",
+      "type": "gate",
+      "statusMap": [
+        "awaiting-review"
+      ],
+      "instructionPath": "steps/final-review.md",
+      "routes": {
+        "approved": "publish",
+        "changesRequested": "remotion-prep",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "publish",
+      "label": "Publish",
+      "type": "agent",
+      "statusMap": [
+        "approved"
+      ],
+      "instructionPath": "steps/publish.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "statusMap": [
+        "rejected",
+        "closed"
+      ],
+      "instructionPath": "steps/closed.md"
+    }
+  ]
+}

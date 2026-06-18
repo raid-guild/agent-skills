@@ -1,0 +1,15 @@
+{
+  "key": "meeting-transcript-memory-ingest",
+  "name": "Meeting Transcript Memory Ingest",
+  "version": 1,
+  "enabled": true,
+  "systemDefault": false,
+  "exportedAt": "2026-06-18",
+  "sourceEndpoint": "/agent/workflows/meeting-transcript-memory-ingest",
+  "notes": "Workflow and step paths in manifest.proposal.json are normalized for this repository. Source runtime filesystem paths are intentionally not preserved.",
+  "sourcePaths": {
+    "workflowPathPresent": false,
+    "workflowContentPresent": false,
+    "stepInstructionContentCount": 0
+  }
+}

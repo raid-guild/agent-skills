@@ -1,0 +1,106 @@
+{
+  "key": "fireside-blog-post-draft-publish",
+  "name": "Fireside Blog Post Draft Publish",
+  "version": 13,
+  "description": "Draft, generate visuals, review, publish, and attach one focused RaidGuild blog post from either a narrow fireside session topic or a mature Portal wiki topic with a clear thesis.",
+  "entrypoint": "intake",
+  "workflowPath": "workflow.md",
+  "target": {
+    "required": false
+  },
+  "agentConfig": {
+    "runtime": "codex-runtime",
+    "mode": "main-agent",
+    "identity": "fireside-blog-production-agent",
+    "skills": [
+      "prism-api-reader",
+      "portal-ops-skill",
+      "rg-scribe-publisher-skill",
+      "public-social-output-sanitizer",
+      "x-developer-api",
+      "imagegen"
+    ],
+    "delegation": {
+      "allowed": false,
+      "maxAgents": 1
+    }
+  },
+  "steps": [
+    {
+      "key": "intake",
+      "label": "Production Intake",
+      "type": "agent",
+      "statusMap": [
+        "submitted",
+        "triaging",
+        "needs-human-input"
+      ],
+      "instructionPath": "steps/intake.md",
+      "next": "draft-post"
+    },
+    {
+      "key": "draft-post",
+      "label": "Draft Post",
+      "type": "agent",
+      "statusMap": [
+        "ready-for-agent",
+        "in-progress"
+      ],
+      "instructionPath": "steps/draft-post.md",
+      "next": "generate-image"
+    },
+    {
+      "key": "generate-image",
+      "label": "Generate Image",
+      "type": "agent",
+      "statusMap": [
+        "in-progress"
+      ],
+      "instructionPath": "steps/generate-image.md",
+      "next": "review"
+    },
+    {
+      "key": "review",
+      "label": "Review",
+      "type": "gate",
+      "statusMap": [
+        "awaiting-review"
+      ],
+      "instructionPath": "steps/review.md",
+      "routes": {
+        "approved": "publish-and-attach",
+        "changesRequested": "revise",
+        "rejected": "closed"
+      }
+    },
+    {
+      "key": "revise",
+      "label": "Revise",
+      "type": "agent",
+      "statusMap": [
+        "changes-requested"
+      ],
+      "instructionPath": "steps/revise.md",
+      "next": "review"
+    },
+    {
+      "key": "publish-and-attach",
+      "label": "Publish And Attach",
+      "type": "agent",
+      "statusMap": [
+        "approved"
+      ],
+      "instructionPath": "steps/publish-and-attach.md",
+      "next": "closed"
+    },
+    {
+      "key": "closed",
+      "label": "Closed",
+      "type": "terminal",
+      "statusMap": [
+        "closed",
+        "rejected"
+      ]
+    }
+  ]
+}
