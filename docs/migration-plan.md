@@ -4,10 +4,10 @@ Use this process to refactor current Prism skills into a smaller RaidGuild skill
 
 ## Phase 1: Collect
 
-Dump current Prism skills into:
+Dump current Prism skills into one folder per skill:
 
 ```text
-references/prism-skills/raw/
+references/prism-skills/<prism-skill-name>/SKILL.md
 ```
 
 Dump current Prism workflow references into:
@@ -16,10 +16,10 @@ Dump current Prism workflow references into:
 references/prism-workflows/
 ```
 
-Prefer one folder per Prism skill when possible:
+Keep the exported `SKILL.md` as the source reference for migration. If a later export includes additional files, keep those files inside the same skill folder:
 
 ```text
-references/prism-skills/raw/<prism-skill-name>/
+references/prism-skills/<prism-skill-name>/
 ```
 
 If only descriptions are available, add them to `references/prism-skills/inventory.md`.

@@ -117,7 +117,7 @@ Useful formula for post angles:
 
 When the task asks for stronger RaidGuild relevance, combine HN scouting with available Prism skills:
 
-- Use `prism-api-reader` for Prism Memory, digests, knowledge docs, and project state.
+- Use `prism-api-reader` (built-in Prism skill, not part of this custom-skill export) for Prism Memory, digests, knowledge docs, and project state.
 - Use Portal CMS data only through approved APIs or existing workflow/context, not browser admin routes.
 - Use Queen Raida repo-backed docs from Prism Knowledge source `queen-raida` when shaping tone, safety, and post examples.
 
