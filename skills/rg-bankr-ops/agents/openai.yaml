@@ -1,0 +1,4 @@
+interface:
+  display_name: "RaidGuild Bankr Ops"
+  short_description: "Bankr command planning and verification."
+  default_prompt: "Prepare or verify a Bankr operation before execution."

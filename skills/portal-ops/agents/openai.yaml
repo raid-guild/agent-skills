@@ -1,0 +1,4 @@
+interface:
+  display_name: "RaidGuild Portal Ops"
+  short_description: "Portal CMS operations and safe Payload writes."
+  default_prompt: "Prepare a safe Portal CMS create or update plan from source material."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "RaidGuild Publishing Ops"
+  short_description: "Publishing queues, sends, calendars, URLs."
+  default_prompt: "Prepare or reconcile an approved RaidGuild publishing operation."

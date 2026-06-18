@@ -1,0 +1,4 @@
+interface:
+  display_name: "RaidGuild Public Output Safety"
+  short_description: "Public draft sanitizing and claim safety."
+  default_prompt: "Review this public draft for safety blockers and return the sanitized output."

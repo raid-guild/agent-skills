@@ -1,0 +1,4 @@
+interface:
+  display_name: "RaidGuild DAO Ops"
+  short_description: "DAOhaus, Moloch, and distro operations."
+  default_prompt: "Inspect, prepare, or verify a DAO operation with exact parameters."

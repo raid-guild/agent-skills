@@ -1,0 +1,4 @@
+interface:
+  display_name: "RaidGuild Content Strategy"
+  short_description: "RaidGuild content planning and editorial QA."
+  default_prompt: "Turn this source material into a channel-appropriate RaidGuild content plan or draft brief."

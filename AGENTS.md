@@ -9,7 +9,7 @@ This repo contains reusable RaidGuild agent skills. Treat it as a maintainabilit
 - Put exported Prism skill source material under `references/prism-skills/<skill-name>/SKILL.md`.
 - Put exported Prism workflow source material under `references/prism-workflows/<workflow-key>/`.
 - Put analysis, inventories, and migration notes under `references/prism-skills/`.
-- Keep `skills/` empty until a candidate skill has a clear boundary, migration source, and validation path.
+- Add to `skills/` only when a candidate skill has a clear boundary, migration source, and validation path.
 - Do not commit secrets, tokens, internal URLs, client-private details, wallet keys, private operational notes, or environment-specific paths.
 - Prefer concise `SKILL.md` files with deeper material in local `references/` files.
 - Use cross-references instead of copying rules between skills.
@@ -28,7 +28,7 @@ If those answers are unclear, keep the work in `references/prism-skills/` until 
 
 ## File Policy
 
-- `skills/`: only published skills.
+- `skills/`: only refactored and validated skills.
 - `references/prism-skills/<skill-name>/SKILL.md`: exported Prism custom skill reference copies.
 - `references/prism-workflows/<workflow-key>/`: exported Prism workflow reference copies.
 - `references/prism-skills/inventory.md`: structured list of current Prism skills and migration decisions.

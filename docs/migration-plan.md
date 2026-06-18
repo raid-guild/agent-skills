@@ -2,6 +2,8 @@
 
 Use this process to refactor current Prism skills into a smaller RaidGuild skill system.
 
+See `docs/refactor-plan.md` for the current proposed target skill map.
+
 ## Phase 1: Collect
 
 Dump current Prism skills into one folder per skill:

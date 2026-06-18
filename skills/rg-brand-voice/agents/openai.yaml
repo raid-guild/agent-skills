@@ -1,0 +1,4 @@
+interface:
+  display_name: "RaidGuild Brand Voice"
+  short_description: "RaidGuild voice, persona, and copy polish."
+  default_prompt: "Audit or adapt this draft for the appropriate RaidGuild voice."

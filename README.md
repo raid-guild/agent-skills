@@ -2,28 +2,43 @@
 
 Reusable agent skills for RaidGuild.
 
-This repo is intentionally starting with **no published skills**. The first phase is to collect the current Prism skill corpus as source material, identify duplicated concepts, and refactor it into a smaller set of durable capability skills.
+This repo refactors the current Prism skill corpus into a smaller set of durable RaidGuild capability skills.
 
 ## Repository Layout
 
 ```text
 .
-├── skills/                  # Published skills. Empty until a skill is refactored and validated.
+├── skills/                  # Published skills after refactor and validation.
 ├── references/
+│   ├── writing-anti-patterns.md # Shared source material for future voice/content skills.
 │   ├── prism-skills/        # Prism custom skill reference exports and migration notes.
 │   └── prism-workflows/     # Prism workflow reference exports and migration notes.
 ├── docs/
+│   ├── adopted-patterns.md  # External skill patterns adopted by this repo.
 │   ├── architecture.md      # Skill design principles and boundaries.
-│   └── migration-plan.md    # Refactor workflow from Prism one-offs to repo skills.
+│   ├── migration-plan.md    # Refactor workflow from Prism one-offs to repo skills.
+│   ├── refactor-plan.md     # Proposed target skill map after reviewing Prism.
+│   └── voice-corpus-plan.md # Voice source strategy for RaidGuild and agent personas.
 └── AGENTS.md                # Instructions for agents working in this repo.
 ```
 
 ## Current Phase
 
-1. Dump the existing Prism skills into `references/prism-skills/<skill-name>/SKILL.md` and workflow references into `references/prism-workflows/`.
-2. Build an inventory in `references/prism-skills/inventory.md`.
-3. Group duplicated behavior into capability owners.
-4. Create only the first validated skills in `skills/`.
+The first shared content slice has been created:
+
+- `skills/rg-brand-voice`
+- `skills/rg-content-strategy`
+- `skills/rg-public-output-safety`
+- `skills/rg-publishing-ops`
+- `skills/portal-ops`
+- `skills/rg-dao-ops`
+- `skills/rg-bankr-ops`
+
+Next migration work:
+
+1. Enrich the first-slice references from the voice corpus and Prism workflows.
+2. Forward-test content, publishing, and Portal flows on realistic Queen Raida, AI Solutions, and public RaidGuild tasks.
+3. Refactor CRM, media, and arcade/reporting operations next.
 
 ## Skill Standard
 
@@ -38,7 +53,7 @@ Each published skill must:
 
 ## Candidate Capability Areas
 
-These are planning buckets, not skills yet:
+These are planning buckets; some are now represented by first-pass skills:
 
 - Public output safety
 - RaidGuild brand and voice
