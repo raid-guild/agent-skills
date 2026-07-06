@@ -16,6 +16,7 @@ Read only the references needed:
 - Remotion composition checks: `references/remotion-compositions.md`
 - Render payloads: `references/render-payloads.md`
 - Audio render inputs: `references/audio-render-inputs.md`
+- TTS providers and voice mapping: `references/tts-providers.md`
 - Failure recovery: `references/failure-recovery.md`
 
 Use `s3-object-storage` when workflow artifacts need S3-compatible upload or durable fetchable URLs.

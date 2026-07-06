@@ -78,6 +78,7 @@ If input lacks timestamps, participants, sources, or approval, preserve uncertai
 - Keep threads lightweight; they are continuity, not categories or tickets.
 - Create or update wiki pages only when the source supports durable topic knowledge, not transient recap content.
 - Use posts for reviewed editorial or distribution artifacts.
+- For Portal post PATCH operations, use `?depth=0` or sanitize upload nodes so every `upload.value` is a string/number media id, never a populated media object.
 - Do not publish wiki pages unless `reviewStatus` is `reviewed`.
 - Do not create or update admin-only wiki pages as an agent.
 - Do not delete records unless explicitly requested and confirmed.

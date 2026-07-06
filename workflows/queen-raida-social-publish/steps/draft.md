@@ -12,6 +12,7 @@ Requirements:
 - do not pretend `@raidguildish` is the official `@RaidGuild` HQ account
 - do not invent governance authority, project status, client work, member claims, or launch state
 - keep X posts within platform limits before safety review
+- when drafting replies, include at least one grounded follow-up question if it would naturally continue the conversation
 
 Produce `queen-raida-social-drafts.md` with:
 
@@ -20,3 +21,4 @@ Produce `queen-raida-social-drafts.md` with:
 - non-public source notes
 - character counts for X candidates
 - any exact destination URLs or reply targets
+- suggested follow-up reply, if the post is likely to invite responses

@@ -23,6 +23,7 @@ Read only the references needed for the task:
 - Editorial strategy and rubrics: `references/editorial-rubric.md`
 - Source-to-draft planning: `references/source-to-draft.md`
 - Channel formats: `references/channel-formats.md`
+- X growth loops: `references/x-growth-loops.md`
 - Content pillars: `references/content-pillars.md`
 - Workflow patterns: `references/workflow-patterns.md`
 - Repo-level voice source model: `docs/voice-corpus-plan.md`

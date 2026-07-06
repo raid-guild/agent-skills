@@ -18,6 +18,8 @@ Structure:
 2. meaning or implication
 3. optional CTA or receipt
 
+For X, also consider `x-growth-loops.md`: favor consistent source-backed posting, story over feature lists, timing humility, and reply plans that keep real conversations moving.
+
 ## Discord
 
 Best for:
