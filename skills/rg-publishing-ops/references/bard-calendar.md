@@ -2,7 +2,15 @@
 
 Use Bard Calendar as the shared planning store for content publishing events.
 
-## Environment
+## Authenticated Transport
+
+Prefer an assigned authenticated HTTP transport for the Bard Calendar origin.
+Send method, `/api/agent/...` path, query, and JSON body through that transport
+without requesting or exposing its credential.
+
+Use direct environment auth only as a fallback.
+
+## Environment Fallback
 
 Require:
 

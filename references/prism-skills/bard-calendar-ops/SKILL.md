@@ -7,7 +7,14 @@ description: Use when Codex needs to inspect, create, upsert, patch, reconcile, 
 
 Use Bard Calendar as the shared planning store for content publishing events.
 
-## Auth
+## Authenticated Transport
+
+Prefer an assigned authenticated HTTP tool or credential broker for the Bard
+Calendar origin. Supply only the method, `/api/agent/...` path, query, and JSON
+body through that transport; do not request or handle its underlying token.
+
+When no authenticated transport is available, fall back to direct environment
+configuration.
 
 Require:
 
@@ -205,4 +212,6 @@ node scripts/bard_calendar.mjs upsert --json event.json
 node scripts/bard_calendar.mjs patch --id <event-id> --json patch.json
 ```
 
-The helper reads `BARD_CALENDAR_BASE_URL` and `BARD_CALENDAR_AGENT_API_TOKEN` from the environment and prints JSON.
+The helper is an environment-backed fallback. It reads
+`BARD_CALENDAR_BASE_URL` and `BARD_CALENDAR_AGENT_API_TOKEN` and prints JSON.
+Do not use it when an authenticated runtime transport is assigned.
