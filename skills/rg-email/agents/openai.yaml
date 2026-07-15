@@ -1,0 +1,4 @@
+interface:
+  display_name: "RaidGuild Email"
+  short_description: "Approved transactional email operations."
+  default_prompt: "Use $rg-email to prepare or send an approved transactional email."
