@@ -40,6 +40,7 @@ The first shared content slice has been created:
 - `skills/s3-object-storage`
 - `skills/rg-media-render-ops`
 - `skills/rg-crm-ops`
+- `skills/rg-email`
 
 Next migration work:
 
