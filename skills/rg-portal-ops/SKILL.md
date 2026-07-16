@@ -1,6 +1,6 @@
 ---
 name: rg-portal-ops
-description: Use when Codex needs to inspect, plan, create, or update RaidGuild Portal CMS records through safe Payload API workflows, including sessions/events, posts, wiki pages, briefs, projects, threads, activity items, profiles, spotlights, CMS-managed page copy, event artifacts, resources, and source-grounded memory updates. Prefer reviewable plans and drafts unless the target environment, source facts, account, and approval are clear. Not for general content strategy, brand voice polish, or non-Portal publishing sends.
+description: Use when Codex needs to inspect, plan, create, or update RaidGuild Portal data, including CMS records, sessions/events, posts, wiki pages, briefs, projects, threads, activity items, profiles, spotlights, page copy, event artifacts, resources, source-grounded memory updates, or read-only Arcade leaderboards and daily gameplay summaries. Prefer reviewable plans and drafts for writes unless the target environment, source facts, account, and approval are clear.
 ---
 
 # RaidGuild Portal Ops

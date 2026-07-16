@@ -1,6 +1,6 @@
 ---
 name: rg-email
-description: Use when Codex needs to draft, preview, send, or reconcile an approved RaidGuild transactional or one-off email through an assigned email Gateway toolset, including explicit-recipient messages, small individually enumerated recipient sets, workflow notifications, replies, and delivery evidence. Not for newsletters, marketing campaigns, mailing-list management, audience expansion, or sending without explicit recipient and content authorization.
+description: Use when Codex needs to draft, preview, send, or reconcile an approved RaidGuild transactional or one-off email using the instance's configured email provider credentials, including explicit-recipient messages, small individually enumerated recipient sets, workflow notifications, replies, and delivery evidence. Not for newsletters, marketing campaigns, mailing-list management, or audience expansion.
 ---
 
 # RaidGuild Email
@@ -8,9 +8,9 @@ description: Use when Codex needs to draft, preview, send, or reconcile an appro
 Use this skill for private transactional email operations after the purpose,
 recipients, and authority to send are clear.
 
-This skill owns email preparation, approval checks, safe Gateway invocation, and
+This skill owns email preparation, approval checks, provider invocation, and
 delivery evidence. It does not own campaign strategy, bulk lists, subscription
-state, provider credentials, or workflow-event polling.
+state, credential custody, or workflow-event polling.
 
 ## Routing
 
@@ -18,8 +18,8 @@ Read only the references needed:
 
 - Message, recipient, approval, and privacy rules:
   `references/transactional-email.md`
-- Gateway invocation and SendGrid-specific behavior:
-  `references/sendgrid-gateway.md`
+- SendGrid configuration, request shape, and response handling:
+  `references/sendgrid.md`
 
 Use `rg-brand-voice` when the message needs RaidGuild voice work.
 Use `rg-public-output-safety` when email content will also be published.
@@ -29,7 +29,7 @@ Use the instance campaign system for newsletters, mailing lists, or bulk sends.
 
 - `DRAFT`: prepare subject, recipients, text/HTML body, and send plan.
 - `PREVIEW`: validate the exact outbound envelope without sending.
-- `SEND`: perform an authorized email send through the assigned Gateway toolset.
+- `SEND`: perform an authorized email send through the configured provider.
 - `RECONCILE`: inspect safe response evidence and report accepted, rejected,
   ambiguous, or failed status.
 
@@ -45,16 +45,16 @@ Before `SEND`, confirm:
 
 If any item is missing, remain in `DRAFT` or `PREVIEW`.
 
-## Gateway Boundary
+## Credential Boundary
 
-Use the assigned email Gateway toolset. Call its canonical `describe` operation
-before the first use in a session, then use `request` according to the returned
-schema. Do not call a provider using a pasted key or ask the operator to reveal
-one.
+Use conventional environment variables supplied to the trusted job by the
+instance credential system. For SendGrid, follow `references/sendgrid.md`.
+Never ask the operator to paste a key into chat or task input.
 
-If the toolset is unavailable, report the missing email integration and direct
-the operator to configure or assign it through Gateway. Do not fall back to
-credentials in chat, skill files, task params, artifacts, or command history.
+Check only whether required variables are present. Never print, persist, return,
+or interpolate secret values into commands, logs, artifacts, or error messages.
+If configuration is missing, report the missing variable names and direct the
+operator to add or update the email credential in instance Settings.
 
 ## Operating Rules
 
