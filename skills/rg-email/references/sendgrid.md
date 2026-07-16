@@ -1,20 +1,38 @@
-# SendGrid Through Gateway
+# SendGrid Transactional Email
 
 Use this reference only when the assigned email transport is SendGrid.
 
-## Credential boundary
+## Environment
 
-The SendGrid API key belongs in Credential Gateway. Use the assigned email
-toolset's canonical `describe` and `request` operations. Never read, print,
-request, store, or transmit `SENDGRID_API_KEY` as task or model input.
+Required:
 
-The exact Gateway toolset key is instance configuration and must not be
-hardcoded into this reusable skill.
+- `SENDGRID_API_KEY`
+- `EMAIL_FROM_ADDRESS`
+
+Optional:
+
+- `SENDGRID_BASE_URL` defaults to `https://api.sendgrid.com`
+- `EMAIL_FROM_NAME`
+- `EMAIL_REPLY_TO_ADDRESS`
+
+Use only values already present in the trusted job environment. Check for
+presence without printing values. Never request, log, persist, or return the API
+key. Treat sender and reply-to values as instance configuration; do not invent
+or override them from recipient content.
 
 ## Request shape
 
-After inspecting `describe`, use `request` to submit the provider request. A
-typical SendGrid operation is `POST /v3/mail/send` with an envelope shaped like:
+Send `POST /v3/mail/send` to the configured base URL using Node.js built-in
+`fetch` or another available HTTP client. Set headers inside the process from
+the environment:
+
+```text
+Authorization: Bearer $SENDGRID_API_KEY
+Content-Type: application/json
+```
+
+Do not place the expanded authorization header in a shell argument or debug
+output. Use an envelope shaped like:
 
 ```json
 {
@@ -33,8 +51,8 @@ typical SendGrid operation is `POST /v3/mail/send` with an envelope shaped like:
 }
 ```
 
-Follow the live toolset schema over this example. Use a verified sender identity
-configured for the instance; do not invent a From address.
+Use `EMAIL_FROM_ADDRESS` and optional `EMAIL_FROM_NAME` for `from`. Use
+`EMAIL_REPLY_TO_ADDRESS` only when configured.
 
 For an approved SendGrid dynamic template, use its configured template id and
 `dynamic_template_data` rather than mixing template and ad hoc body content.
@@ -46,8 +64,8 @@ custom arguments. Do not include email bodies, access tokens, private URLs, or
 unnecessary personal data in metadata.
 
 An HTTP `202` means SendGrid accepted the request for processing. Capture the
-safe provider message id header when exposed, but do not describe acceptance as
-delivered. Delivery, bounce, and spam outcomes require provider event data.
+safe `x-message-id` response header when exposed, but do not describe acceptance
+as delivered. Delivery, bounce, and spam outcomes require provider event data.
 
 ## Errors and retries
 
