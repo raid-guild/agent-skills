@@ -125,9 +125,9 @@ References to create:
 
 This skill should require `rg-public-output-safety` before any public post is queued or sent. It should not own voice or strategy.
 
-### 6. `rg-portal-ops`
+### 6. Portal Operations (External Dependency)
 
-Owns Portal CMS and Payload API operations.
+Portal CMS and Payload API operations are owned by the Portal repo's canonical `portal-ops-skill` and are not published from this repo.
 
 Absorbs:
 
@@ -136,7 +136,7 @@ Absorbs:
 - Portal event/session artifact workflows
 - Portal wiki/post/session update portions of workflows
 
-References to create:
+Its app-local references include:
 
 - `references/primitives.md`
 - `references/events-and-discord-sync.md`
@@ -146,14 +146,12 @@ References to create:
 - `references/page-copy.md`
 - `references/confidence-and-review.md`
 
-The current `portal-ops-skill` is too large for a single `SKILL.md`. Keep only operating rules, source inputs, routing, and safety in the main file; move endpoint-specific material into references.
-
-Canonical app-specific source remains the Portal repo's in-repo skill package:
+Canonical source:
 
 - `https://github.com/raid-guild/portal`
 - `.agents/skills/portal-ops-skill/`
 
-This repo should carry the portable distilled skill and cross-capability boundaries; use the Portal repo for current field schemas, endpoint drift, and app-local implementation details.
+Workflows in this repo may depend on that canonical skill, but this repo should not carry a second implementation or app-local schema details.
 
 ### 7. `rg-dao-ops`
 
@@ -268,12 +266,15 @@ Validation task:
 
 Use a Queen Raida X draft from workflow source material. The expected route is strategy draft, brand/voice pass, research/claim check when needed, then safety JSON.
 
-### Phase 2: Publishing And Portal
+### Phase 2: Publishing And Portal Integration
 
 Created:
 
 1. `rg-publishing-ops`
-2. `rg-portal-ops`
+
+External dependency:
+
+1. Portal repo `.agents/skills/portal-ops-skill/`
 
 Validation task:
 
@@ -298,7 +299,7 @@ Created:
 2. `rg-media-render-ops`
 3. `s3-object-storage`
 
-Folded Portal Arcade API details into `rg-portal-ops/references/arcade-agent-apis.md` instead of creating a standalone `portal-arcade-reporter` skill. Recurring arcade reports should remain workflow recipes unless reporting becomes a broader durable capability.
+Keep Portal Arcade API details in the Portal repo's `portal-ops-skill` instead of creating a standalone `portal-arcade-reporter` skill here. Recurring reports should remain workflow recipes unless reporting becomes a broader durable capability.
 
 Validation task:
 

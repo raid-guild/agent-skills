@@ -1,6 +1,6 @@
 # Source Intake
 
-Use `rg-content-strategy`, `rg-brand-voice`, and `rg-portal-ops` when Portal context is relevant.
+Use `rg-content-strategy`, `rg-brand-voice`, and `portal-ops-skill` when Portal context is relevant.
 
 Read the approved steering note, request description, artifacts, external refs, and source URLs. If the request references a Prism Memory item, X collection summary, Portal item, or campaign state artifact, fetch or summarize that source before broader research.
 

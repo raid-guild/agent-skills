@@ -20,7 +20,7 @@
     "mode": "main-agent",
     "identity": "portal-activity-report-agent",
     "skills": [
-      "rg-portal-ops",
+      "portal-ops-skill",
       "rg-content-strategy",
       "rg-public-output-safety",
       "rg-publishing-ops"

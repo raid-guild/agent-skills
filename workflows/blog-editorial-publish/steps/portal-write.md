@@ -2,7 +2,7 @@
 
 Operator-started agent node (`autoRun: false`).
 
-Use `rg-portal-ops`.
+Use `portal-ops-skill`.
 
 Before writing:
 

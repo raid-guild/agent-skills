@@ -39,7 +39,7 @@
       "rg-brand-voice",
       "rg-public-output-safety",
       "rg-publishing-ops",
-      "rg-portal-ops"
+      "portal-ops-skill"
     ],
     "delegation": {
       "allowed": false,

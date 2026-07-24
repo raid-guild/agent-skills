@@ -1,6 +1,6 @@
 # Source Intake
 
-Use `rg-content-strategy` and `rg-portal-ops` when Portal records or session artifacts are involved.
+Use `rg-content-strategy` and `portal-ops-skill` when Portal records or session artifacts are involved.
 
 Read the approved steering note, request description, attached artifacts, external refs, Portal records, Prism Memory digest, and source URLs.
 

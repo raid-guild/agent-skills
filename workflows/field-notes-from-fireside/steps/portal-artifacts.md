@@ -1,6 +1,6 @@
 # Portal Artifacts
 
-Use `rg-portal-ops`.
+Use `portal-ops-skill`.
 
 Attach source and planning artifacts to the Portal session/event resources.
 

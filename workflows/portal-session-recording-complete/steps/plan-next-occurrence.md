@@ -1,6 +1,6 @@
 # Plan Next Occurrence
 
-Use `rg-portal-ops`.
+Use `portal-ops-skill`.
 
 Inspect the session recurrence metadata and produce `next-occurrence-plan.md`.
 

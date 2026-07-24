@@ -1,6 +1,6 @@
 # Apply Next Occurrence
 
-Use `rg-portal-ops`.
+Use `portal-ops-skill`.
 
 This agent node has `autoRun: false`. Continue only when the operator accepts the recurrence plan or the event source is trusted for automatic recurrence.
 

@@ -1,6 +1,6 @@
 # Session Intake
 
-Use `rg-portal-ops` and `rg-content-strategy`.
+Use `portal-ops-skill` and `rg-content-strategy`.
 
 Read the approved steering note, request description, Portal session/event record, attached artifacts, external refs, and source URLs.
 

@@ -1,6 +1,6 @@
 # Publish Wiki Page
 
-Use `rg-portal-ops`.
+Use `portal-ops-skill`.
 
 This agent node has `autoRun: false`. Continue only after the operator approves exact page target, visibility, and payload.
 

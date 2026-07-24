@@ -34,7 +34,6 @@ The first shared content slice has been created:
 - `skills/rg-research`
 - `skills/rg-public-output-safety`
 - `skills/rg-publishing-ops`
-- `skills/rg-portal-ops`
 - `skills/rg-dao-ops`
 - `skills/rg-bankr-ops`
 - `skills/s3-object-storage`
@@ -68,7 +67,6 @@ These are planning buckets; some are now represented by first-pass skills:
 - Content strategy
 - Research and source discipline
 - Publishing operations
-- Portal and CMS operations
 - CRM operations
 - Object storage operations
 - Media render operations

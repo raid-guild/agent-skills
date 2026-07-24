@@ -38,7 +38,7 @@ Use it for:
 - `rg-public-output-safety`: public copy, descriptions, titles, and social summaries.
 - `s3-object-storage`: upload generated audio or render input assets.
 - `rg-media-render-ops`: Remotion composition inspection, payload prep, render submission, and status checks.
-- `rg-portal-ops`: Portal draft, brief, post, wiki, session resource, or CMS update.
+- `portal-ops-skill`: Portal draft, brief, post, wiki, session resource, or CMS update.
 - `rg-publishing-ops`: Discord summary, calendar/X draft, or external publish evidence.
 
 ## Operator Semantics

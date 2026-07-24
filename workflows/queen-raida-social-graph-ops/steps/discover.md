@@ -1,6 +1,6 @@
 # Discover Candidates
 
-Use `rg-content-strategy`, `rg-brand-voice`, `rg-portal-ops`, and read-only X context through `rg-publishing-ops` where available.
+Use `rg-content-strategy`, `rg-brand-voice`, `portal-ops-skill`, and read-only X context through `rg-publishing-ops` where available.
 
 Discover candidate accounts from Portal profiles, RaidGuild/member seeds, approved X searches, and public graph context.
 

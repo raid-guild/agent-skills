@@ -43,7 +43,7 @@ Do not use it for:
 - `rg-brand-voice`: Queen Raida persona, RaidGuild voice fit, and channel tone.
 - `rg-public-output-safety`: sanitizer and blocker contract.
 - `rg-publishing-ops`: X queue/API, Discord summary, schedule or publish evidence.
-- `rg-portal-ops`: Portal facts and URLs when the post references Portal content.
+- `portal-ops-skill`: Portal facts and URLs when the post references Portal content.
 
 ## Operator Semantics
 

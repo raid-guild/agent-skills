@@ -14,9 +14,9 @@ Use this file to track current Prism skills and their migration target.
 | hn-news-scout | HN scanning for post angles | Hacker News | Relevance, current claims | rg-research | reference | Folded into `rg-research` as HN scouting guidance. |
 | moloch-dao-ops | DAOhaus/Moloch inspect/propose/vote/process | meta-clawtel, moloch-agent | Governance transactions | rg-dao-ops | merge | Migrated to `skills/rg-dao-ops/references/moloch-agent.md`. |
 | nextcrm | CRM MCP operations | Nexus CRM / NextCRM MCP | Client/customer data privacy | rg-crm-ops | keep | Migrated to `skills/rg-crm-ops`; canonical implementation remains `https://github.com/raid-guild/nexus-crm`. |
-| portal-arcade-reporter | Portal Arcade read-only reporting | Game reporting APIs | Public/private leaderboard context | rg-portal-ops / workflow recipes | reference | API contract migrated to `skills/rg-portal-ops/references/arcade-agent-apis.md`; recurring reports stay workflows. |
-| portal-memory-publisher | Deprecated alias for portal ops | Portal APIs | Alias drift | rg-portal-ops | deprecate | Replaced by `skills/rg-portal-ops`. |
-| portal-ops-skill | Portal CMS operations | Payload API | Invented content, project-management drift | rg-portal-ops | keep | Migrated to `skills/rg-portal-ops` with endpoint details split into references. |
+| portal-arcade-reporter | Portal Arcade read-only reporting | Game reporting APIs | Public/private leaderboard context | Portal repo `portal-ops-skill` / workflow recipes | external | API contract belongs to the Portal repo's canonical skill; recurring reports stay workflows. |
+| portal-memory-publisher | Deprecated alias for portal ops | Portal APIs | Alias drift | Portal repo `portal-ops-skill` | deprecate | Replaced by the Portal repo's canonical skill. |
+| portal-ops-skill | Portal CMS operations | Payload API | Invented content, project-management drift | Portal repo `portal-ops-skill` | external | Canonical package is maintained at `.agents/skills/portal-ops-skill/` in the Portal repo. |
 | public-social-output-sanitizer | Public output sanitization | None or text-only | Secrets, private info, unsupported claims | rg-public-output-safety | merge | Strong candidate first skill. |
 | queen-raida-dungeon-master-mode | Queen Raida story loop testing | Chat/Discord context | Persona drift | rg-brand-voice | reference | Persona/gameplay reference, not standalone. |
 | queen-raida-social-agent | Queen Raida X/social drafting/posting | Prism, Portal, X | Public posting, account voice, factual grounding | rg-brand-voice / rg-publishing-ops | reference | Split persona from publishing mechanics. |
@@ -34,3 +34,4 @@ Use this file to track current Prism skills and their migration target.
 - `reference`: becomes a reference file, template, persona profile, or workflow note
 - `deprecate`: remove after replacement exists
 - `unknown`: needs review
+- `external`: capability is maintained in its owning application repo

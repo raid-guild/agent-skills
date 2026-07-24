@@ -1,6 +1,6 @@
 # Source Pack
 
-Use `rg-content-strategy` and `rg-portal-ops`.
+Use `rg-content-strategy` and `portal-ops-skill`.
 
 Build a verified source pack from session artifacts and Portal data.
 

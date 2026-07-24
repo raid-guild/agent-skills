@@ -1,6 +1,6 @@
 # Intake
 
-Use `rg-portal-ops`.
+Use `portal-ops-skill`.
 
 Read the recording completion event, Portal session/event id, Discord thread/channel context, recording URL, transcript URL, summary URL, and any attached artifact metadata.
 

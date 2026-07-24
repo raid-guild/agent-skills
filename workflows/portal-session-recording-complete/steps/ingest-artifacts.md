@@ -1,6 +1,6 @@
 # Ingest Artifacts
 
-Use `rg-portal-ops`.
+Use `portal-ops-skill`.
 
 Attach the recording, transcript, summary, and related artifacts to the matched Portal session/event resources.
 

@@ -16,7 +16,7 @@
       "rg-content-strategy",
       "rg-brand-voice",
       "rg-publishing-ops",
-      "rg-portal-ops"
+      "portal-ops-skill"
     ],
     "delegation": {
       "allowed": false,

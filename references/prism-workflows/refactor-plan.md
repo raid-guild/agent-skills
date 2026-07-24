@@ -10,7 +10,7 @@ Use these skill names in refactored workflow manifests and step instructions:
 - `rg-brand-voice`
 - `rg-public-output-safety`
 - `rg-publishing-ops`
-- `rg-portal-ops`
+- `portal-ops-skill`
 - `rg-dao-ops`
 - `rg-bankr-ops`
 - `s3-object-storage`
@@ -34,15 +34,15 @@ External built-in capability surfaced by workflow analysis:
 | `discord-send` | `rg-publishing-ops` |
 | `x-developer-api` | `rg-publishing-ops` |
 | `x-draft-queue` | `rg-publishing-ops` |
-| `portal-memory-publisher` | `rg-portal-ops` |
-| `portal-ops-skill` | `rg-portal-ops` |
+| `portal-memory-publisher` | `portal-ops-skill` |
+| `portal-ops-skill` | `portal-ops-skill` |
 | `moloch-dao-ops` | `rg-dao-ops` |
 | `cookiejar-activity-reader` | `rg-dao-ops` |
 | `dao-proposal-watcher` | `rg-dao-ops` |
 | `workflow-audio-bucket-uploader` | `s3-object-storage` + `rg-media-render-ops` |
 | `remotion-composition-checker` | `rg-media-render-ops` |
 | `nextcrm` | `rg-crm-ops` |
-| `portal-arcade-reporter` | `rg-portal-ops` reference + reporting workflow |
+| `portal-arcade-reporter` | `portal-ops-skill` reference + reporting workflow |
 
 ## Prism Built-In Dependencies
 
@@ -90,7 +90,7 @@ Base candidate: `blog-post-steered-draft-review-publish`.
 
 Merge in generic blog, fireside blog, and lore entry modes.
 
-Normalized sequence: intake/source ledger -> `rg-content-strategy` -> draft -> `rg-brand-voice` -> media if needed -> `rg-public-output-safety` -> human review -> `rg-portal-ops`.
+Normalized sequence: intake/source ledger -> `rg-content-strategy` -> draft -> `rg-brand-voice` -> media if needed -> `rg-public-output-safety` -> human review -> `portal-ops-skill`.
 
 Implemented recipe:
 
@@ -112,7 +112,7 @@ Base candidate: `weekly-public-brief-podcast-publish` v9.
 
 Variants: public weekly brief, internal/member daily brief, fireside recap video, brief without media.
 
-Normalized media sequence: source intake -> strategy -> script/summary -> voice/safety where public -> TTS artifacts -> `s3-object-storage` -> `rg-media-render-ops` -> review -> `rg-portal-ops`.
+Normalized media sequence: source intake -> strategy -> script/summary -> voice/safety where public -> TTS artifacts -> `s3-object-storage` -> `rg-media-render-ops` -> review -> `portal-ops-skill`.
 
 Implemented recipe:
 
@@ -152,7 +152,7 @@ Implemented recipe:
 
 Base candidate: `portal-session-recording-complete` v4.
 
-Keep canonical. Use `rg-portal-ops` artifact ingest and recurrence rules.
+Keep canonical. Use `portal-ops-skill` artifact ingest and recurrence rules.
 
 Implemented recipe:
 
@@ -172,7 +172,7 @@ Implemented recipe:
 
 Base candidate: `fireside-wiki-topic-develop` v4.
 
-Keep canonical. Use `rg-research`, `rg-content-strategy`, `rg-brand-voice`, `rg-public-output-safety`, and `rg-portal-ops`.
+Keep canonical. Use `rg-research`, `rg-content-strategy`, `rg-brand-voice`, `rg-public-output-safety`, and `portal-ops-skill`.
 
 Implemented recipe:
 

@@ -1,6 +1,6 @@
 # Publish Prep
 
-Use `rg-portal-ops`, `rg-public-output-safety`, and `rg-publishing-ops`.
+Use `portal-ops-skill`, `rg-public-output-safety`, and `rg-publishing-ops`.
 
 Prepare the exact publish payload or queue payload.
 

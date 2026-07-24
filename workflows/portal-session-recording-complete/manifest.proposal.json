@@ -13,7 +13,7 @@
     "mode": "main-agent",
     "identity": "portal-session-recording-agent",
     "skills": [
-      "rg-portal-ops"
+      "portal-ops-skill"
     ],
     "delegation": {
       "allowed": false,

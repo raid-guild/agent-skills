@@ -16,7 +16,7 @@ This recipe absorbs the generic, steered, fireside, and lore blog workflows whil
 1. `rg-content-strategy`: audience, source ledger, angle, content job, format.
 2. `rg-brand-voice`: RaidGuild, AI Solutions, Queen Raida, or lore voice fit.
 3. `rg-public-output-safety`: final safety review before public-ready handoff.
-4. `rg-portal-ops`: Portal post draft/publish package and CMS record handling.
+4. `portal-ops-skill`: Portal post draft/publish package and CMS record handling.
 5. `rg-publishing-ops`: only if the approved post also needs external scheduling, announcement, or live URL reconciliation outside Portal.
 
 ## Outputs

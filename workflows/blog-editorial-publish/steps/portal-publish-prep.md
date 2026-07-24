@@ -1,6 +1,6 @@
 # Portal Publish Prep
 
-Use `rg-portal-ops`.
+Use `portal-ops-skill`.
 
 Create `publish-package.json`.
 

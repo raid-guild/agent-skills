@@ -1,6 +1,6 @@
 # Collect Data
 
-Use `rg-portal-ops`.
+Use `portal-ops-skill`.
 
 Collect the requested Portal, feedback, activity, and arcade data for the approved time window.
 

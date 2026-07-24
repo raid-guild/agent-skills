@@ -4,6 +4,8 @@ This directory contains normalized workflow recipes derived from Prism workflow 
 
 The original exports remain immutable source material under `references/prism-workflows/`. Recipes here are the refactored working models that compose the durable RaidGuild skills in `skills/`.
 
+Portal workflow steps depend on the canonical `.agents/skills/portal-ops-skill/` package maintained in the Portal repo; this repo does not publish a duplicate Portal operations skill.
+
 ## Node Types
 
 - `agent`: Codex/agent work node.

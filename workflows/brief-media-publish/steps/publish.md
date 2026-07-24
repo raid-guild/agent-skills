@@ -1,6 +1,6 @@
 # Publish
 
-Use `rg-portal-ops` and `rg-publishing-ops`.
+Use `portal-ops-skill` and `rg-publishing-ops`.
 
 This agent node has `autoRun: false`. Continue only after the operator approves the exact destination, visibility, and payload.
 

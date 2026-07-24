@@ -1,6 +1,6 @@
 # Reconcile
 
-Use `rg-publishing-ops`. Use `rg-portal-ops` only when a Portal artifact or CMS reference must be updated.
+Use `rg-publishing-ops`. Use `portal-ops-skill` only when a Portal artifact or CMS reference must be updated.
 
 Read `queen-raida-social-publish-result.md` and record the final outcome for the request.
 

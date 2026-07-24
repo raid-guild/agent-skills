@@ -1,6 +1,6 @@
 # Wiki Topic Map
 
-Use `rg-content-strategy` and `rg-portal-ops`.
+Use `rg-content-strategy` and `portal-ops-skill`.
 
 Inspect existing Portal wiki pages and decide whether to update an existing page, create one new page, or propose a related page set.
 
