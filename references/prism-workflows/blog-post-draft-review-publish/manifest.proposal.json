@@ -62,7 +62,11 @@
       "type": "gate",
       "statusMap": ["awaiting-review"],
       "instructionPath": "steps/review.md",
-      "next": "publish-prep"
+      "routes": {
+        "approved": "publish-prep",
+        "changesRequested": "revise",
+        "rejected": "closed"
+      }
     },
     {
       "key": "revise",
@@ -114,8 +118,12 @@
       "key": "needs-attention",
       "label": "Needs Attention: Verify Publish",
       "type": "gate",
-      "instructions": "Human verification gate after a publish-oriented step. Inspect the publish artifact, external refs, draft/live URL, and any blocked/needs-attention artifact. Approve to close only when publish evidence is real and reachable. Request changes to return to the publish step when target/auth/API/content issues remain.",
-      "next": "closed"
+      "instructions": "Human verification gate after a publish-oriented step. Inspect the publish artifact, external refs, draft/live URL, and any blocked/needs-attention artifact. Approve to close only when publish evidence is real and reachable. Request changes to return to publish preparation so safety and package validation run again before CMS mutation.",
+      "routes": {
+        "approved": "closed",
+        "changesRequested": "publish-prep",
+        "rejected": "closed"
+      }
     },
     {
       "key": "closed",

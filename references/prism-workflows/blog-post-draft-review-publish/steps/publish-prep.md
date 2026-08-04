@@ -31,10 +31,16 @@ The publish package should include at least:
 - meta title
 - meta description
 - slug
+- canonical URL
+- named author
 - tags
 - markdown
+- valid Article JSON-LD using verified title, description, author, image, dates, canonical URL, and publisher values
+- FAQ JSON-LD only when the post contains genuine FAQ content; otherwise omit it
 - selected hero image ref
 - selected inline image refs with placement hints when applicable
+
+Never invent author identities, dates, URLs, or structured-data values. Treat a missing canonical URL, named author, or valid Article JSON-LD as a blocker.
 
 ## Image selection rules
 

@@ -28,9 +28,11 @@ Use the latest publish-prep artifact plus any selected image artifacts.
 5. Apply the prepared SEO fields from publish-prep:
    - use `metaTitle` when provided, otherwise only use the main title if it still fits the target range
    - use `metaDescription` from publish-prep rather than a raw long excerpt
-6. If inline images were selected in publish-prep, embed them into the Lexical post body at their specified placement hints.
-7. Create the post as a draft with _status set to draft unless explicitly configured otherwise.
-8. Save a publish receipt as a request artifact containing at least the created Payload post id, slug, media ids, admin URL, whether inline images were embedded, and the final SEO field values used.
+6. Apply the canonical URL and named author exactly as provided by the approved publish package.
+7. Persist valid Article JSON-LD and FAQ JSON-LD only when the approved package includes genuine FAQ content and the destination supports it. Do not derive or invent missing structured data during publish.
+8. If inline images were selected in publish-prep, embed them into the Lexical post body at their specified placement hints.
+9. Create the post as a draft with _status set to draft unless explicitly configured otherwise.
+10. Save a publish receipt as a request artifact containing at least the created Payload post id, slug, canonical URL, named author, structured-data status, media ids, admin URL, whether inline images were embedded, and the final SEO field values used.
 
 ## SEO rule
 
@@ -54,6 +56,9 @@ Return a concise publish summary with:
 - which inline images were embedded in-body
 - final meta title
 - final meta description
+- canonical URL
+- named author
+- Article and FAQ structured-data status
 - admin URL when available
 
 If Payload credentials or content conversion are unavailable, return a clear blocked result rather than partially publishing.
