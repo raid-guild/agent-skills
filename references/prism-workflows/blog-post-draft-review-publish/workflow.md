@@ -1,42 +1,43 @@
 # Blog Post Draft Review Publish
 
-This workflow handles blog-post requests that move through intake, drafting, media planning, image generation, human review, revision when needed, publish preparation, and Payload CMS draft publishing.
+This workflow handles intake, optimization planning, drafting, media, human review, revision, publish preparation, and Payload CMS draft creation.
 
 ## Purpose
 
-Use this workflow when a user wants a blog post drafted from Prism Memory and Prism Knowledge context, with image artifacts planned and generated before human review, and a final draft written into Payload CMS for admin review.
+Create source-grounded blog posts optimized for search engines, answer engines, and generative retrieval, with durable media and publishing evidence.
 
-## Human Gate Behavior
+## Content Quality Sequence
 
-The review step is the required human gate.
+Use `rg-content-strategy` during intake and drafting, `rg-scribe-publisher-skill` plus `rg-brand-voice` during drafting and revision, and `rg-public-output-safety` during publish preparation. Safety review is mandatory before any CMS mutation. Unresolved blockers route to `needs-attention`; only a passing `safety-result.json` may continue to publish.
 
-- approved -> publish-prep
-- changesRequested -> revise
-- rejected -> closed
+## Human Gate
 
-The revise -> review loop may repeat until the reviewer approves or rejects the post.
+The review step is required: approved advances to publish prep, changesRequested returns to revise, and rejected closes the request.
 
 ## Durable State
 
-Workflow runtime state belongs in DB-backed request/workflow records, not markdown files. Drafts, media plans, image prompt docs, generated images, and Payload publish receipts should be saved as request artifacts.
+Save the optimization brief, drafts, media plans, images, safety result, publish package, CMS receipt, and validation reports as request artifacts. Runtime state remains DB-backed.
 
-## Payload CMS Destination
+## SEO, GEO, And AEO Contract
 
-This workflow expects a Payload CMS instance at the configured base URL and publishes posts as drafts, not as public published content.
+Intake defines the primary query, audience question, named entities, likely follow-up questions, and internal-link candidates.
 
-## Image Durability And Publish Rules
+Drafting must answer the audience question directly near the opening, use question-led headings when useful, preserve source notes, and distinguish firsthand findings from sourced claims.
 
-Generated blog images should be saved as direct request image artifacts whenever the runtime path supports it. A manifest-only record is a fallback, not the preferred success path.
+Publish preparation must verify:
 
-When a publish package selects inline images for use in the article body, the publish step must embed those images into the CMS post content, not only upload them to the media library. Uploading inline media without placing it in the post body should be treated as incomplete publish behavior and called out explicitly in the publish receipt.
-
-## SEO Guardrails
-
-Publish-prep and publish should treat the CMS SEO checks as part of the workflow contract, not optional polish.
-
-Default targets:
 - meta title: 50-60 characters
 - meta description: 100-150 characters
-- meta image: present and relevant
+- canonical URL
+- named author
+- article-specific social image
+- descriptive image alt text
+- relevant internal links
+- valid Article JSON-LD
+- FAQ JSON-LD only for genuine FAQ content
 
-When the strongest editorial title is too long for the SEO field, keep a readable on-page headline but also provide a CMS-safe meta title variant that passes the check.
+Keep a readable editorial headline and a shorter meta title when needed.
+
+## CMS Order
+
+Publish prep performs the mandatory safety check and creates the package, publish creates or updates a Payload draft, and rich-text validation checks both Lexical content and SEO/GEO/AEO evidence before human verification.

@@ -40,6 +40,7 @@ The first shared content slice has been created:
 - `skills/rg-media-render-ops`
 - `skills/rg-crm-ops`
 - `skills/rg-email`
+- `skills/rg-scribe-publisher-skill`
 
 Next migration work:
 
