@@ -1,57 +1,50 @@
 {
   "key": "blog-post-draft-review-publish",
   "name": "Blog Post Draft Review Publish",
-  "version": 9,
+  "version": 14,
   "description": "Draft, plan media, generate images, review, revise, prepare, and publish blog posts to Payload CMS without requiring a repository target.",
   "entrypoint": "intake",
   "workflowPath": "workflow.md",
-  "target": {
-    "required": false
-  },
+  "target": { "required": false },
   "agentConfig": {
-    "runtime": "codex-runtime",
     "mode": "main-agent",
     "identity": "prism-workflow-agent",
     "skills": [
       "prism-api-reader",
-      "portal-memory-publisher"
+      "rg-portal-ops",
+      "rg-content-strategy",
+      "rg-scribe-publisher-skill",
+      "rg-brand-voice",
+      "rg-public-output-safety"
     ],
-    "delegation": {
-      "allowed": false,
-      "maxAgents": 1
-    }
+    "delegation": { "allowed": false, "maxAgents": 1 }
   },
   "steps": [
     {
       "key": "intake",
       "label": "Intake",
       "type": "agent",
-      "statusMap": [
-        "submitted",
-        "triaging",
-        "needs-human-input"
-      ],
+      "statusMap": ["submitted", "triaging", "needs-human-input"],
       "instructionPath": "steps/intake.md",
-      "next": "draft"
+      "next": "draft",
+      "agentConfig": { "skills": ["rg-content-strategy"] }
     },
     {
       "key": "draft",
       "label": "Draft",
       "type": "agent",
-      "statusMap": [
-        "ready-for-agent",
-        "in-progress"
-      ],
+      "statusMap": ["ready-for-agent", "in-progress"],
       "instructionPath": "steps/draft.md",
-      "next": "media-plan"
+      "next": "media-plan",
+      "agentConfig": {
+        "skills": ["rg-content-strategy", "rg-scribe-publisher-skill", "rg-brand-voice"]
+      }
     },
     {
       "key": "media-plan",
       "label": "Media Plan",
       "type": "agent",
-      "statusMap": [
-        "in-progress"
-      ],
+      "statusMap": ["in-progress"],
       "instructionPath": "steps/media-plan.md",
       "next": "generate-images"
     },
@@ -59,9 +52,7 @@
       "key": "generate-images",
       "label": "Generate Images",
       "type": "agent",
-      "statusMap": [
-        "in-progress"
-      ],
+      "statusMap": ["in-progress"],
       "instructionPath": "steps/generate-images.md",
       "next": "review"
     },
@@ -69,9 +60,7 @@
       "key": "review",
       "label": "Review",
       "type": "gate",
-      "statusMap": [
-        "awaiting-review"
-      ],
+      "statusMap": ["awaiting-review"],
       "instructionPath": "steps/review.md",
       "routes": {
         "approved": "publish-prep",
@@ -83,47 +72,64 @@
       "key": "revise",
       "label": "Revise",
       "type": "agent",
-      "statusMap": [
-        "changes-requested"
-      ],
+      "statusMap": ["changes-requested"],
       "instructionPath": "steps/revise.md",
-      "next": "review"
+      "next": "review",
+      "agentConfig": { "skills": ["rg-scribe-publisher-skill", "rg-brand-voice"] }
     },
     {
       "key": "publish-prep",
       "label": "Publish Prep",
       "type": "agent",
-      "statusMap": [
-        "approved"
-      ],
+      "statusMap": ["approved"],
       "instructionPath": "steps/publish-prep.md",
-      "next": "validate-rich-text"
+      "next": "publish",
+      "agentConfig": { "skills": ["rg-public-output-safety"] },
+      "routes": {
+        "completed": "publish",
+        "needsAttention": "needs-attention",
+        "blocked": "needs-attention"
+      }
+    },
+    {
+      "key": "publish",
+      "label": "Create CMS Draft",
+      "type": "agent",
+      "statusMap": ["approved"],
+      "instructionPath": "steps/publish.md",
+      "next": "validate-rich-text",
+      "agentConfig": {
+        "skills": ["rg-portal-ops", "rg-publishing-ops"],
+        "gatewayCredentials": ["portal"]
+      }
     },
     {
       "key": "validate-rich-text",
       "label": "Validate Rich Text",
       "type": "agent",
       "instructionPath": "steps/validate-rich-text.md",
-      "next": "publish"
+      "next": "needs-attention",
+      "agentConfig": {
+        "skills": ["rg-portal-ops"],
+        "gatewayCredentials": ["portal"]
+      }
     },
     {
-      "key": "publish",
-      "label": "Publish",
-      "type": "agent",
-      "statusMap": [
-        "approved"
-      ],
-      "instructionPath": "steps/publish.md",
-      "next": "closed"
+      "key": "needs-attention",
+      "label": "Needs Attention: Verify Publish",
+      "type": "gate",
+      "instructions": "Human verification gate after a publish-oriented step. Inspect the publish artifact, external refs, draft/live URL, and any blocked/needs-attention artifact. Approve to close only when publish evidence is real and reachable. Request changes to return to publish preparation so safety and package validation run again before CMS mutation.",
+      "routes": {
+        "approved": "closed",
+        "changesRequested": "publish-prep",
+        "rejected": "closed"
+      }
     },
     {
       "key": "closed",
       "label": "Closed",
       "type": "terminal",
-      "statusMap": [
-        "rejected",
-        "closed"
-      ]
+      "statusMap": ["rejected", "closed"]
     }
   ]
 }

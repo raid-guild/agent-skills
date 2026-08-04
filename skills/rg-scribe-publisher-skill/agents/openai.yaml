@@ -1,0 +1,4 @@
+interface:
+  display_name: "RG Scribe Publisher"
+  short_description: "Polish source-grounded RaidGuild public copy"
+  default_prompt: "Use $rg-scribe-publisher-skill to turn this source material into concise RaidGuild publishing copy."

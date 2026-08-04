@@ -1,3 +1,5 @@
 # Intake
 
-Clarify topic, audience, source context, target format, and missing inputs. Return a short intake summary, resolved assumptions, and any human-input blockers. Use prism-api-reader when retrieval is needed.
+Use `rg-content-strategy` to clarify the topic, audience question, sources, format, search intent, and missing inputs. Use `prism-api-reader` when retrieval is needed.
+
+Create `optimization-brief.json` with the primary query, audience question, named entities, likely follow-up questions, target audience, source context, and internal-link candidates. Do not invent search demand or volume. Label assumptions and return blockers.

@@ -1,6 +1,10 @@
 # Publish Prep
 
-Prepare the approved post for publishing without actually publishing it. Return title, excerpt, tags, slug recommendation, markdown, and references to the selected image artifacts that should travel with the publish package.
+Use `rg-public-output-safety` to review the exact approved public-facing post before preparing it for Payload. Save `safety-result.json` using the skill's required JSON contract.
+
+If the safety result is blocked, has unresolved high or critical blockers, or lacks required human approval, do not prepare a publishable package and do not allow CMS mutation. Save `safety-blocker.md` and return `needsAttention` so the workflow routes to `needs-attention`.
+
+Only after a passing safety result, prepare the approved post for publishing without mutating Payload. Return `completed` so the workflow continues to `publish`.
 
 The output of this step should be suitable input for the Payload CMS publish step.
 
@@ -27,10 +31,16 @@ The publish package should include at least:
 - meta title
 - meta description
 - slug
+- canonical URL
+- named author
 - tags
 - markdown
+- valid Article JSON-LD using verified title, description, author, image, dates, canonical URL, and publisher values
+- FAQ JSON-LD only when the post contains genuine FAQ content; otherwise omit it
 - selected hero image ref
 - selected inline image refs with placement hints when applicable
+
+Never invent author identities, dates, URLs, or structured-data values. Treat a missing canonical URL, named author, or valid Article JSON-LD as a blocker.
 
 ## Image selection rules
 
